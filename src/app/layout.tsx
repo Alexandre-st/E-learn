@@ -1,3 +1,5 @@
+import Footer from '@/layouts/Footer';
+import Header from '@/layouts/Header';
 import type { Metadata } from 'next';
 import './styles/index.scss';
 
@@ -11,8 +13,12 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang='en'>
       {/* Emplacement des icons tout ce qui doit être dans la balise head */}
       <head></head>
-      {/* Emplacement du header */}
-      <body>{children}</body>
+      <body>
+        {/* Emplacement du header */}
+        <Header />
+        {children}
+        <Footer />
+        </body>
       {/* Emplacement du footer */}
     </html>
   );
