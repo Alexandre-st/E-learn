@@ -1,0 +1,31 @@
+@use '../base/mixins' as *;
+
+.header {
+  &-container {
+    display: flex;
+    justify-content: space-between;
+
+    & .navbar {
+      display: none;
+
+      @include mq(tablet) {
+        display: flex;
+      }
+    }
+  }
+
+  &-user {
+    display: none;
+
+    @include mq(tablet) {
+      display: flex;
+    }
+  }
+
+  // Menu for the mobile
+  @include mq(tablet) {
+    &-menu {
+      display: none;
+    }
+  }
+}
