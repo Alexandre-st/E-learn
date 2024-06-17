@@ -1,4 +1,5 @@
-import ThemeSwitcher from "../components/ThemeSwitcher";
+import Link from 'next/link';
+import ThemeSwitcher from '../components/ThemeSwitcher';
 
 const Header = () => {
   return (
@@ -6,8 +7,12 @@ const Header = () => {
       <nav className='header-container container'>
         <h2>e-Learn</h2>
         <ul className='navbar'>
-          <li>Home</li>
-          <li>About</li>
+          <li>
+            <Link href='/'>Home</Link>
+          </li>
+          <li>
+            <Link href='/about'>About</Link>
+          </li>
           <li>Course</li>
           <li>Contact</li>
         </ul>

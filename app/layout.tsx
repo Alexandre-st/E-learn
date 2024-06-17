@@ -1,6 +1,6 @@
-import Footer from '@/app/layouts/Footer';
 import type { Metadata } from 'next';
 import { ThemeProvider } from './components/ThemeProvider';
+import Footer from './layouts/Footer';
 import Header from './layouts/Header';
 import './styles/index.scss';
 
@@ -18,7 +18,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <ThemeProvider attribute='class' defaultTheme='light' enableSystem>
           <Header />
           {children}
-          {/* Emplacement du footer */}
           <Footer />
         </ThemeProvider>
       </body>

@@ -16,26 +16,14 @@ const ThemeSwitcher = () => {
   }, []);
 
   // Prevents rendering on the server
-  if (!mounted) return null; 
+  if (!mounted) return null;
 
   return (
     <>
       {resolvedTheme === 'dark' ? (
-        <Image 
-          src={sunIcon} 
-          alt="Passer en couleur clair"
-          onClick={() => setTheme('light')}
-          width={12}
-          height={12}
-          />
-        ) : (
-          <Image 
-          src={moonIcon} 
-          alt="Passer en couleur sombre"
-          onClick={() => setTheme('dark')}
-          width={12}
-          height={12}
-        />
+        <Image src={sunIcon} alt='Passer en couleur clair' onClick={() => setTheme('light')} width={12} height={12} />
+      ) : (
+        <Image src={moonIcon} alt='Passer en couleur sombre' onClick={() => setTheme('dark')} width={12} height={12} />
       )}
     </>
   );
