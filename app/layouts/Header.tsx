@@ -18,7 +18,7 @@ const Header = () => {
         </ul>
         <div className='header-user'>
           <div className='login'>
-            <p>login</p>
+            <Link href="/login">login</Link>
           </div>
           <button>Sign up for free</button>
           <ThemeSwitcher />
