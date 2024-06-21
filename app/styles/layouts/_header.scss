@@ -1,0 +1,38 @@
+@use '../base/mixins' as *;
+
+.header {
+  margin-bottom: 5rem;
+
+  &-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 2rem 0;
+
+    & .navbar {
+      display: none;
+
+      @include mq(tablet) {
+        display: flex;
+        align-items: center;
+        gap: 1.4rem;
+      }
+    }
+  }
+
+  &-user {
+    display: none;
+
+    @include mq(tablet) {
+      display: flex;
+      gap: 1.4rem;
+      align-items: center;
+    }
+  }
+
+  // Menu for the mobile
+  @include mq(tablet) {
+    &-menu {
+      display: none;
+    }
+  }
+}
