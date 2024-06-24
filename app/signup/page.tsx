@@ -1,15 +1,9 @@
-import { signup } from '../login/action';
+import SignUpForm from '../components/forms/SignUpForm';
 
-const SignUpPage = () => {
+const SignUpPage = async () => {
   return (
     <section className='container'>
-      <form>
-        <label htmlFor='email'>Email:</label>
-        <input id='email' name='email' type='email' autoComplete='email' required />
-        <label htmlFor='password'>Password:</label>
-        <input id='password' name='password' type='password' autoComplete='current-password' required />
-        <button formAction={signup}>Sign up</button>
-      </form>
+      <SignUpForm />
     </section>
   );
 };
