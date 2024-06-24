@@ -20,7 +20,7 @@ const Header = () => {
           <div className='login'>
             <Link href="/login">login</Link>
           </div>
-          <button>Sign up for free</button>
+          <Link href="/signup">Sign up for free</Link>
           <ThemeSwitcher />
         </div>
         <div className='header-menu'>
