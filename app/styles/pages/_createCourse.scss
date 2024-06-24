@@ -1,0 +1,44 @@
+.layout_title_course {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  margin: 1%;
+}
+
+.title_course {
+  color: var(--Primary-900, #06241B);
+  text-align: center;
+  font-family: "Space Mono", serif;
+  font-size: 44px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 72px;
+}
+
+.submit_create_course {
+  display: flex;
+  padding: 13px 30px;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: large;
+
+  border-radius: 10px;
+  border: none;
+  color: white;
+  background: #0079FF;
+}
+
+.input_create_course {
+  align-items: center;
+}
+
+.label_create_course {
+  color: #000;
+  font-family: "Space Mono", serif;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 25px;
+}
