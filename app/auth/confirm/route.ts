@@ -3,7 +3,7 @@ import { type NextRequest, NextResponse } from 'next/server';
 
 import { createClient } from '../../../utils/supabase/server';
 
-const GET = async (request: NextRequest) => {
+export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
   const token_hash = searchParams.get('token_hash');
   const type = searchParams.get('type') as EmailOtpType | null;
@@ -30,6 +30,4 @@ const GET = async (request: NextRequest) => {
   // return the user to an error page with some instructions
   redirectTo.pathname = '/error';
   return NextResponse.redirect(redirectTo);
-};
-
-export default GET;
+}
