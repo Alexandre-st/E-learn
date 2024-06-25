@@ -8,5 +8,7 @@
 @use './layouts/footer';
 
 // == PAGES == //
+@use './pages/createCourse';
 
 // == COMPONENTS == //
+@use './components/answer';
