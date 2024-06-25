@@ -1,6 +1,4 @@
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { createClient } from '../../utils/supabase/server';
 import AuthButton from '../components/AuthButton';
 import ThemeSwitcher from '../components/ThemeSwitcher';
 
