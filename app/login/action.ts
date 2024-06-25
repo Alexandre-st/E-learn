@@ -83,6 +83,7 @@ export async function signup(data: typeInputs) {
       email: data.email,
       password: hashedPassword,
       role: role,
+      user_id: user?.id
     },
   ]);
 
