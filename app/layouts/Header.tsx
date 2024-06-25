@@ -1,38 +1,28 @@
 import Link from 'next/link';
 import AuthButton from '../components/AuthButton';
+import Menu from '../components/Menu';
 import ThemeSwitcher from '../components/ThemeSwitcher';
 
 const Header = () => {
   return (
     <header className='header'>
       <nav className='header-container container'>
-        <Link href='/'>eLearn</Link>
+        <Link className='header-container-logo' href='/'>eLearn</Link>
         <ul className='navbar'>
           <li>
-            <Link href='/'>Home</Link>
+            <Link href='/'>Accueil</Link>
           </li>
           <li>
             <Link href='/about'>About</Link>
           </li>
-          <li>Course</li>
-          <li>Contact</li>
+          <Link href="/courses">Course</Link>
         </ul>
         <div className='header-user'>
           <AuthButton />
           <ThemeSwitcher />
         </div>
-        <div className='header-menu'>
-          <button>Menu</button>
-          <nav>
-            <ul className='header-menu-mobile'>
-              <li>Home</li>
-              <li>About</li>
-              <li>Course</li>
-              <li>Contact</li>
-            </ul>
-          </nav>
-        </div>
-      </nav>
+        <Menu />
+      </nav> 
     </header>
   );
 };

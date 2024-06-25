@@ -2,11 +2,25 @@
 
 .header {
   margin-bottom: 5rem;
+  border-bottom: 1px solid #e7e9eb;
 
   &-container {
     display: flex;
     justify-content: space-between;
-    padding: 2rem 0;
+    padding: 3rem 0;
+
+    &-logo {
+      font-family: 'PT Serif', serif;
+      font-size: 48px;
+      font-style: italic;
+      font-weight: 700;
+      line-height: 35px;
+      letter-spacing: 0.1px;
+
+      &::first-letter {
+        color: var(--blue);
+      }
+    }
 
     & .navbar {
       display: none;
@@ -14,7 +28,19 @@
       @include mq(tablet) {
         display: flex;
         align-items: center;
-        gap: 1.4rem;
+        gap: 4.8rem;
+        color: var(--header-color);
+        font-size: 1.6rem;
+        font-weight: 500;
+        line-height: 2.4rem;
+
+        & li {
+          transition: all 0.3s ease-in-out;
+
+          &:hover {
+            color: var(--blue);
+          }
+        }
       }
     }
   }
@@ -24,15 +50,84 @@
 
     @include mq(tablet) {
       display: flex;
-      gap: 1.4rem;
+      gap: 2.2rem;
       align-items: center;
+
+      &-content {
+        display: flex;
+        align-items: center;
+        gap: 2.2rem;
+
+        & .subscribe {
+          font-size: 16px;
+          font-weight: 500;
+          line-height: 2.4rem;
+          color: var(--header-color);
+          transition: all 0.3s ease-in-out;
+
+          &:hover {
+            color: var(--blue);
+          }
+        }
+
+        & .logout {
+          button {
+            border: none;
+            background: transparent;
+            font-size: 16px;
+            font-weight: 500;
+            line-height: 2.4rem;
+            color: var(--header-color);
+            transition: all 0.3s ease-in-out;
+
+            &:hover {
+              color: var(--blue);
+            }
+          }
+        }
+
+        // & .profile-link {
+        //   padding: 1.2rem 2.4rem;
+        //   background-color: var(--blue);
+        //   color: var(--white);
+        //   border-radius: 8px;
+        //   font-size: 1.6rem;
+        //   transition: all 0.3s ease-in-out;
+
+        //   &:hover {
+        //     background-color: var(--hover-blue);
+        //   }
+        // }
+      }
     }
   }
 
   // Menu for the mobile
-  @include mq(tablet) {
-    &-menu {
+  &-menu {
+    display: flex;
+    align-items: center;
+    gap: 2.2rem;
+
+    & .theme {
+      @include mq(tablet) {
+        display: none;
+      }
+    }
+
+    &-mobile {
+      display: none;
+    }
+    @include mq(tablet) {
       display: none;
     }
   }
+
+  .theme {
+    transition: all 0.3s ease-in-out;
+    &:hover {
+      cursor: pointer;
+      filter: var(--hover-img);
+    }
+  }
 }
+
