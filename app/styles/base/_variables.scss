@@ -17,9 +17,10 @@
   --bold: 700;
   --hover-blue: hsla(212, 100%, 69%, 1);
 
-  --background: var(--blue_gray);
-  --background-content: var(--white);
+  --background: var(--white);
+  --background-content: var(--blue_gray);
   --background-repo: var(--blue_gray);
+  --header-color: var(--gray);
   --text-color: var(--blue-white);
   --repo-color: var(--dark);
   --color-image: var(--color-logo);
@@ -33,6 +34,7 @@
   --background-text: var(--dark-blue);
   --background-repo: var(--dark);
   --title-color: var(--white);
+  --header-color: var(--white)
   --text-color: var(--white);
   --toggle: var(--white);
   --box-shadow: var(--shadow-none);

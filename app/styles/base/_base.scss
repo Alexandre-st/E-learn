@@ -1,13 +1,19 @@
 @use "./mixins" as *;
 
+@import url(https://fonts.bunny.net/css?family=lexend-deca:400,500);
+@import url(https://fonts.bunny.net/css?family=space-mono:700);
+@import url(https://fonts.bunny.net/css?family=pt-serif:700);
+
 :root {
   /* 
     Je met à 10px pour la conversion en rem. 
     Si je veux 16px, c'est 1.6rem
   */
   font-size: 10px; 
-  // font-family: ;
+  font-family: 'Lexend Deca', sans-serif;
+  // font-family: 'Space Mono', monospace;
   // background-color: #fff;
+  background-color: var(--background);
   // color: #262626;
 }
 
@@ -17,5 +23,18 @@
 
   @include mq(tablet) {
     width: min(100% - 6rem, 120rem);
+  }
+}
+
+.button {
+  padding: 1.2rem 2.4rem;
+  background-color: var(--blue);
+  color: var(--white);
+  border-radius: 8px;
+  font-size: 1.6rem;
+  transition: all 0.3s ease-in-out;
+
+  &:hover {
+    background-color: var(--hover-blue);
   }
 }

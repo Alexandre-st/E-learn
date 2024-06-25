@@ -21,9 +21,9 @@ const ThemeSwitcher = () => {
   return (
     <>
       {resolvedTheme === 'dark' ? (
-        <Image src={sunIcon} alt='Passer en couleur clair' onClick={() => setTheme('light')} width={12} height={12} />
+        <Image className='theme' src={sunIcon} alt='Passer en couleur clair' onClick={() => setTheme('light')} width={12} height={12} />
       ) : (
-        <Image src={moonIcon} alt='Passer en couleur sombre' onClick={() => setTheme('dark')} width={12} height={12} />
+        <Image className='theme' src={moonIcon} alt='Passer en couleur sombre' onClick={() => setTheme('dark')} width={12} height={12} />
       )}
     </>
   );
