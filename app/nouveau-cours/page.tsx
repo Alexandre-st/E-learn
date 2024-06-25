@@ -3,7 +3,8 @@
 import React from "react";
 import QuizComponent from "../components/QuizComponent";
 import { FormProvider, SubmitHandler, useFieldArray, useForm } from "react-hook-form";
-import { createClient } from '@supabase/supabase-js';
+import {createClient, User} from '@supabase/supabase-js';
+import {getUser, goTo} from "./action";
 
 type Inputs = {
     title: string;
@@ -19,7 +20,7 @@ type Content = {
 interface Question {
     question: string;
     answers: string[];
-    correctAnswer: number; // Changed to number
+    correctAnswer: number;
 }
 
 interface Quiz {
@@ -49,19 +50,26 @@ const App: React.FC = () => {
 
     const onSubmit: SubmitHandler<Inputs> = async (formData) => {
         console.log("Submitting form data:", formData);
+        const user = await getUser();
+        console.log(user.id);
 
         try {
             const { data, error } = await supabase
                 .from('cours')
                 .insert([
-                    { cours_content: formData.contents, titre: formData.title, description: formData.description },
-                ]);
+                    { cours_content: formData.contents, titre: formData.title, description: formData.description, user: user?.id },
+                ])
+                .select()
+                .single();
+            console.log(data);
 
             if (error) {
                 console.error('Supabase insert error:', error);
                 alert(`Erreur lors de l'insertion des données: ${error.message}`);
                 return;
             }
+
+            goTo(data.id);
 
             console.log('Supabase insert data:', data);
             alert('Les données ont été insérées avec succès !');
@@ -78,7 +86,7 @@ const App: React.FC = () => {
         <FormProvider {...methods}>
             <form onSubmit={handleSubmit(onSubmit)} style={{textAlign: "center"}}>
                 <div className="layout_title_course">
-                    <h1 className="title_course">Création de cours</h1>
+                    <h1 className="title_course">Enregistrer le cours</h1>
                     <input type="submit" value="Enregistrer le cours" className="submit_create_course"/>
                 </div>
 
