@@ -19,6 +19,6 @@ export async function getUser() {
 }
 
 export async function goTo(id: number|string)  {
-  redirect(`/cours-professeur/${id}`);
+  redirect(`/cours/${id}`);
 }
 
