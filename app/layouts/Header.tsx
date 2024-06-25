@@ -10,13 +10,12 @@ const Header = () => {
         <Link className='header-container-logo' href='/'>eLearn</Link>
         <ul className='navbar'>
           <li>
-            <Link href='/'>Home</Link>
+            <Link href='/'>Accueil</Link>
           </li>
           <li>
             <Link href='/about'>About</Link>
           </li>
-          <li>Course</li>
-          <li>Contact</li>
+          <Link href="/courses">Course</Link>
         </ul>
         <div className='header-user'>
           <AuthButton />
