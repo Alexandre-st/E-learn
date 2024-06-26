@@ -1,6 +1,11 @@
+import { Metadata } from 'next';
 import { redirect } from 'next/navigation';
 import { createClient } from '../../utils/supabase/server';
 import SignUpForm from '../components/forms/SignUpForm';
+
+export const metadata: Metadata = {
+  title: 'Inscription',
+};
 
 const SignUpPage = async () => {
   const supabase = createClient();

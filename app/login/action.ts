@@ -1,8 +1,8 @@
 'use server';
-
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 
+import { Provider } from '@supabase/supabase-js';
 import bcrypt from 'bcrypt';
 import { typeInputs } from '../../types/types';
 import { createClient } from '../../utils/supabase/server';
@@ -31,7 +31,7 @@ export async function login(data: typeInputs) {
 
   // Verify the password
   const passwordMatch = await bcrypt.compare(data.password, userData.password);
-  console.log(passwordMatch);
+  // console.log(passwordMatch);
 
   if (!passwordMatch) {
     console.error('Invalid password');
@@ -83,7 +83,7 @@ export async function signup(data: typeInputs) {
       email: data.email,
       password: hashedPassword,
       role: role,
-      user_id: user?.id
+      user_id: user?.id,
     },
   ]);
 
@@ -93,8 +93,31 @@ export async function signup(data: typeInputs) {
   }
 
   // Return success response
-  
+
   // Redirect
   revalidatePath('/', 'layout');
   redirect('/');
 }
+
+export async function oAuthSignIn(provider: Provider) {
+  if (!provider) {
+    return redirect('/login?message=No provider selected');
+  }
+
+  const supabase = createClient();
+  const redirectUrl = '/auth/callback';
+
+  const { data, error } = await supabase.auth.signInWithOAuth({
+    provider: 'github',
+    options: {
+      redirectTo: redirectUrl,
+    },
+  });
+
+  if (error) {
+    redirect('login?message=Could not authenticate user');
+  }
+
+  return redirect(data.url);
+}
+

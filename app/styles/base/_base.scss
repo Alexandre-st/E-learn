@@ -1,4 +1,4 @@
-@use "./mixins" as *;
+@use './mixins' as *;
 
 @import url(https://fonts.bunny.net/css?family=lexend-deca:400,500);
 @import url(https://fonts.bunny.net/css?family=space-mono:700);
@@ -9,7 +9,7 @@
     Je met à 10px pour la conversion en rem. 
     Si je veux 16px, c'est 1.6rem
   */
-  font-size: 10px; 
+  font-size: 10px;
   font-family: 'Lexend Deca', sans-serif;
   // font-family: 'Space Mono', monospace;
   // background-color: #fff;
@@ -26,6 +26,47 @@
   }
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Space Mono';
+  font-weight: 700;
+}
+
+.big-title {
+  font-size: 5.6rem;
+  line-height: 5.6rem;
+  letter-spacing: -2.5px;
+}
+
+.mid-title {
+  font-size: 4.8rem;
+  line-height: 4.8rem;
+  letter-spacing: -2.143px;
+}
+
+.lil-title {
+  font-size: 4rem;
+  line-height: 4rem;
+  letter-spacing: -1.786px;
+}
+
+.shy-title {
+  font-size: 2.4rem;
+  line-height: 2.8rem;
+  letter-spacing: -1px;
+}
+
+.text {
+  font-size: 1.6rem;
+  font-weight: 400;
+  line-height: 24px;
+  color: var(--text-color);
+}
+
 .button {
   padding: 1.2rem 2.4rem;
   background-color: var(--blue);
@@ -38,3 +79,4 @@
     background-color: var(--hover-blue);
   }
 }
+
