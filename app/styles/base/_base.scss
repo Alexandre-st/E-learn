@@ -37,9 +37,14 @@ h6 {
 }
 
 .big-title {
-  font-size: 5.6rem;
-  line-height: 5.6rem;
-  letter-spacing: -2.5px;
+  font-size: 4rem;
+  line-height: 4rem;
+  
+  @include mq(tablet) {
+    font-size: 5.6rem;
+    line-height: 5.6rem;
+    letter-spacing: -2.5px;
+  }
 }
 
 .mid-title {

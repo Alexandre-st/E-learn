@@ -8,7 +8,8 @@ export const metadata: Metadata = {
 
 const LoginPage = () => {
   return (
-    <section className='container'>
+    <section className='form-page container'>
+      <h1 className='big-title'>Se connecter</h1>
       <LoginForm />
       <OAuthButtons />
     </section>

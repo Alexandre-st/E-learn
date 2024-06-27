@@ -20,7 +20,7 @@ export function OAuthButtons() {
   return (
     <>
       {OAuhtProviders.map((provider, index) => (
-        <button onClick={async () => {
+        <button className='loginGithub' onClick={async () => {
           await oAuthSignIn(provider.name);
         }} key={index}>Login with {provider.displayName}</button>
       ))}

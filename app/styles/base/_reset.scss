@@ -20,9 +20,9 @@ li {
   list-style: none;
 }
 
-/* input,
+input,
 textarea,
-select, */
+select,
 button {
   display: block;
   box-sizing: border-box;
@@ -33,11 +33,16 @@ button {
   color: inherit;
 }
 
-/* input:focus,
+input:-webkit-autofill,
+input:-webkit-autofill-selected {
+  background: transparent;
+}
+
+input:focus,
 textarea:focus,
 button:focus {
   outline: none;
-} */
+}
 
 input[type='submit']:hover,
 button:hover {

@@ -15,7 +15,8 @@ const SignUpPage = async () => {
     return redirect('/');
   }
   return (
-    <section className='container'>
+    <section className='form-page container'>
+      <h1 className='big-title'>S&apos;inscrire</h1>
       <SignUpForm />
     </section>
   );

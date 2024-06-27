@@ -1,10 +1,12 @@
 'use client';
+import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { typeInputs } from '../../../types/types';
 import { signup } from '../../login/action';
 
 const SignUpForm = () => {
   const regexEmail = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
+  const [error, setError] = useState<string | null>(null);
 
   const {
     register,
@@ -23,11 +25,15 @@ const SignUpForm = () => {
   const password = watch('password');
 
   const onSubmit: SubmitHandler<typeInputs> = async (data) => {
-    await signup(data);
+    const response = await signup(data);
+    
+    if (response && response.error) {
+      setError(response.error);
+    }
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form className='form' onSubmit={handleSubmit(onSubmit)}>
       <div className='inputStyle'>
         <label htmlFor='firstname'>Prénom</label>
         <input type='text' id='firstname' {...register('firstname', { required: 'Le prénom est obligatoire' })} />
@@ -84,7 +90,8 @@ const SignUpForm = () => {
         />
         {errors.confirmPassword && <p role='alert'>{errors.confirmPassword.message}</p>}
       </div>
-      <button type='submit'>S&apos;inscrire</button>
+      {error && <p role='alert'>{error}</p>}
+      <button className='button' type='submit'>S&apos;inscrire</button>
     </form>
   );
 };

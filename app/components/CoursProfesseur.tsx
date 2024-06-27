@@ -43,7 +43,7 @@ type User = {
 const CoursProfesseur: React.FC<CoursProfesseurProps> = ({ cours, isPublished, user, publish, _onReady, extractYouTubeID }) => {
     return (
         <>
-            <div>
+            <div className='container'>
                 {!isPublished && user?.id === cours.user &&
                     <input type="submit" value="Publier le cours" className="submit_create_course" onClick={publish} />
                 }
