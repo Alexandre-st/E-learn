@@ -1,8 +1,8 @@
 'use server';
-
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 
+import { Provider } from '@supabase/supabase-js';
 import bcrypt from 'bcrypt';
 import { typeInputs } from '../../types/types';
 import { createClient } from '../../utils/supabase/server';
@@ -18,24 +18,15 @@ export async function login(data: typeInputs) {
     .eq('email', data.email)
     .single();
 
-  // Debugging logs
-  // console.log('Fetch Error:', fetchError);
-  // console.log('User Data:', userData);
-  // console.log('Data email:', data.email);
-  // console.log('Data password:', data.password);
-
   if (fetchError || !userData) {
-    console.error('User not found or fetch error:', fetchError);
-    return redirect('/error');
+    return { error: 'Les informations que vous avez entrées sont incorrectes.' };
   }
 
   // Verify the password
   const passwordMatch = await bcrypt.compare(data.password, userData.password);
-  console.log(passwordMatch);
 
   if (!passwordMatch) {
-    console.error('Invalid password');
-    return redirect('/error');
+    return { error: 'Les informations que vous avez entrées sont incorrectes.' };
   }
 
   // Sign in the user
@@ -45,8 +36,7 @@ export async function login(data: typeInputs) {
   });
 
   if (loginError) {
-    console.error('Login Error:', loginError);
-    return redirect('/error');
+    return { error: 'Les informations que vous avez entrées sont incorrectes.' };
   }
 
   // Redirect to the home page after successful login
@@ -63,8 +53,7 @@ export async function signup(data: typeInputs) {
   });
 
   if (signupError) {
-    console.error(signupError);
-    redirect('/error');
+    return { error: "Erreur lors de l'inscription." };
   }
 
   // Get the fresh user who just signed up
@@ -83,18 +72,38 @@ export async function signup(data: typeInputs) {
       email: data.email,
       password: hashedPassword,
       role: role,
-      user_id: user?.id
+      user_id: user?.id,
     },
   ]);
 
   if (insertError) {
-    console.error(insertError);
-    redirect('/error');
+    return { error: "Erreur lors de l'inscription." };
   }
 
-  // Return success response
-  
-  // Redirect
+  // Return success response & redirect
   revalidatePath('/', 'layout');
   redirect('/');
 }
+
+export async function oAuthSignIn(provider: Provider) {
+  if (!provider) {
+    return redirect('/login?message=No provider selected');
+  }
+
+  const supabase = createClient();
+  const redirectUrl = '/auth/callback';
+
+  const { data, error } = await supabase.auth.signInWithOAuth({
+    provider: 'github',
+    options: {
+      redirectTo: redirectUrl,
+    },
+  });
+
+  if (error) {
+    redirect('login?message=Could not authenticate user');
+  }
+
+  return redirect(data.url);
+}
+

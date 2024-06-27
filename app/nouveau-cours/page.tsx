@@ -1,10 +1,10 @@
 "use client"
 // pages/index.tsx
+import { createClient, User } from '@supabase/supabase-js';
 import React from "react";
-import QuizComponent from "../components/QuizComponent";
 import { FormProvider, SubmitHandler, useFieldArray, useForm } from "react-hook-form";
-import {createClient, User} from '@supabase/supabase-js';
-import {getUser, goTo} from "./action";
+import QuizComponent from "../components/QuizComponent";
+import { getUser, goTo } from "./action";
 
 type Inputs = {
     title: string;
