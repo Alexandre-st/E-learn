@@ -7,8 +7,8 @@ import Image from 'next/image';
 const CoursProfesseur: React.FC<CoursProfesseurProps> = ({ cours, isPublished, publish, _onReady, extractYouTubeID }) => {
     return (
         <>
-            <div>
-                {!isPublished &&
+            <div className='container'>
+                {!isPublished && user?.id === cours.user &&
                     <input type="submit" value="Publier le cours" className="submit_create_course" onClick={publish} />
                 }
                 <Image alt="course image" src={cours.imageUrl} width="300" height="300"/>

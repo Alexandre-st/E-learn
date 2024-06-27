@@ -1,10 +1,32 @@
-"use client";
-import React, { useState } from "react";
-import QuizComponent from "../components/QuizComponent";
-import { FormProvider, SubmitHandler, useFieldArray, useForm } from "react-hook-form";
+"use client"
+// pages/index.tsx
 import { createClient, User } from '@supabase/supabase-js';
+import React from "react";
+import { FormProvider, SubmitHandler, useFieldArray, useForm } from "react-hook-form";
+import QuizComponent from "../components/QuizComponent";
 import { getUser, goTo } from "./action";
-import { NouveauCoursInputs } from "../../types/types";
+
+type Inputs = {
+    title: string;
+    description: string;
+    contents: Content[];
+};
+
+type Content = {
+    type: "text" | "video" | "quiz";
+    value: string | Quiz;
+};
+
+interface Question {
+    question: string;
+    answers: string[];
+    correctAnswer: number;
+}
+
+interface Quiz {
+    title: string;
+    questions: Question[];
+}
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;

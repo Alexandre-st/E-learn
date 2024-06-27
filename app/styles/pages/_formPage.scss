@@ -1,0 +1,49 @@
+@use '../base/mixins' as *;
+.form-page {
+
+  .login {
+    @include mq(tablet) {
+      display: flex;
+      justify-content: space-between;
+      gap: 4rem;
+
+      & .form {
+        margin: 0;
+        flex: 1;
+      }
+
+    }
+    
+    &-image {
+      display: none;
+      @include mq(tablet) {
+        display: block;
+        width: 40rem;
+        height: fit-content;
+      }
+
+      @include mq(desktop) {
+        width: 57.7rem;
+      }
+    }
+
+  }
+
+  .big-title {
+    text-align: center;
+    margin-bottom: 4rem;
+
+    @include mq(tablet) {
+      margin-bottom: 8rem;
+    }
+  }
+
+  .form {
+    max-width: 56rem;
+    margin: auto;
+  }
+
+  .loginGithub {
+    display: none;
+  }
+}

@@ -1,10 +1,9 @@
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: '',
-  description: '',
+  title: 'Home',
+  description: 'Votre plateforme de e-Learning',
 };
-
 export default function Home() {
   return (
     <main>
