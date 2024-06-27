@@ -11,7 +11,7 @@ const Cours = async () => {
   const supabase = createClient();
 
   let { data: cours, error } = await supabase.from('cours').select('*, user (id, firstname, lastname, role)');
-  console.log(cours);
+  // console.log(cours);
 
   return (
     <section className='container'>

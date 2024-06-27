@@ -1,7 +1,10 @@
 import { Metadata } from 'next';
 import Image from 'next/image';
 import { redirect } from 'next/navigation';
+import { typeCourses } from '../../types/types';
+import { createClient } from '../../utils/supabase/client';
 import profilePic from '../assets/Profile_pic.svg';
+import CoursComponent from '../components/CoursComponent';
 import { getUser } from '../hooks/getUser';
 
 export const metadata: Metadata = {
@@ -10,6 +13,11 @@ export const metadata: Metadata = {
 
 const Profile: React.FC = async () => {
   const user = await getUser();
+  const supabase = createClient();
+  const { data: cours, error } = await supabase
+    .from('cours')
+    .select('*, user (id, firstname, lastname, role)')
+    .eq('user', user.id);
 
   if (!user) {
     redirect('/login');
@@ -52,6 +60,18 @@ const Profile: React.FC = async () => {
           </div>
         </div>
         {/* <p>{user.email}</p> */}
+        <div className='profile-course'>
+          {user.role === 'professeur' && (
+            <div className='profile-course-content'>
+              <h2 className='mid-title'>Mes <span className='blue'>Cours</span></h2>
+              <div className='card-container'>
+                {cours.map((cour: typeCourses) => (
+                  <CoursComponent cour={cour} key={cour.id} />
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
       </div>
     </section>
   );

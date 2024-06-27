@@ -22,6 +22,7 @@ const CoursComponent = (props: Props) => {
             <Link className='card-link-img' href={`/cours/${cour.user.id}`}>Cours</Link>
           </>
         )}
+        {}
       </div>
     </div>
   );
