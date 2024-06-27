@@ -15,7 +15,7 @@ const Header = () => {
           <li>
             <Link href='/about'>About</Link>
           </li>
-          <Link href="/courses">Course</Link>
+          <Link href="/cours">Cours</Link>
         </ul>
         <div className='header-user'>
           <AuthButton />

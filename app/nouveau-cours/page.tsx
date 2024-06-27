@@ -51,7 +51,7 @@ const App: React.FC = () => {
     const onSubmit: SubmitHandler<Inputs> = async (formData) => {
         console.log("Submitting form data:", formData);
         const user = await getUser();
-        console.log(user.id);
+        // console.log(user.id);
 
         try {
             const { data, error } = await supabase

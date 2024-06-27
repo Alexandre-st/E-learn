@@ -18,11 +18,11 @@
 }
 
 .container {
-  width: min(100% - 4rem, 120rem);
+  width: min(100% - 4rem, 132rem);
   margin-inline: auto;
 
   @include mq(tablet) {
-    width: min(100% - 6rem, 120rem);
+    width: min(100% - 6rem, 132rem);
   }
 }
 
