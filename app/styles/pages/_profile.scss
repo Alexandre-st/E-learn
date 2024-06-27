@@ -1,17 +1,35 @@
+@use '../base/mixins' as *;
+
 .profile {
   &-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 5rem;
+    @include mq(tablet) {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 5rem;
+    }
   }
 
   &-content {
     display: flex;
-    gap: 10rem;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 5rem;
+
+    @include mq(tablet) {
+      flex-direction: row;
+      margin-top: 0;
+      align-items: normal;
+      gap: 10rem;
+    }
 
     &-image {
       width: 260px;
+      margin-bottom: 4rem;
+
+      @include mq(tablet) {
+        margin-bottom: 0;
+      }
 
       img {
         height: fit-content;
@@ -24,4 +42,9 @@
       justify-content: space-between;
     }
   }
+
+  &-course {
+    margin-top: 8rem;
+  }
 }
+

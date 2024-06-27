@@ -14,6 +14,7 @@
   --filter-img: brightness(0%);
   --filter-img-reverse: invert(50%) sepia(11%) saturate(963%) hue-rotate(178deg) brightness(93%) contrast(89%);
   --border: #d5d5d5;
+  --border-card: #f1f3f7;
   --shadow-none: none;
   --font-weight: 400;
   --bold: 700;
@@ -21,6 +22,7 @@
 
   --background: var(--white);
   --background-content: var(--blue_gray);
+  --background-light: var(--white);
   --background-repo: var(--blue_gray);
   --header-color: var(--gray);
   --text-color: var(--blue-white);
@@ -30,6 +32,7 @@
   --hover-text: var(--dark);
   --hover-img: var(--filter-img);
   --border-color: var(--border);
+  --border-card-color: var(--border-card);
   --background-input: transparent;
 }
 
@@ -37,6 +40,7 @@
   --background: var(--dark);
   --background-content: var(--dark-blue);
   --background-text: var(--dark-blue);
+  --background-light: var(--dark-blue);
   --background-input: var(--dark-blue);
   --background-repo: var(--dark);
   --title-color: var(--white);
@@ -50,5 +54,7 @@
   --color-image: var(--filter);
   --hover-text: var(--blue-white);
   --hover-img: var(--filter-img-reverse);
-  --border-color: transparent
+  --border-color: transparent;
+  --border-card-color: transparent;
+
 }
