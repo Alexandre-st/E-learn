@@ -61,7 +61,7 @@ const App: React.FC = () => {
                 ])
                 .select()
                 .single();
-            console.log(data);
+            // console.log(data);
 
             if (error) {
                 console.error('Supabase insert error:', error);
@@ -71,11 +71,11 @@ const App: React.FC = () => {
 
             goTo(data.id);
 
-            console.log('Supabase insert data:', data);
+            // console.log('Supabase insert data:', data);
             alert('Les données ont été insérées avec succès !');
 
         } catch (error) {
-            console.error('API error:', error);
+            // console.error('API error:', error);
             alert('Erreur lors de la communication avec le serveur');
         }
     };
