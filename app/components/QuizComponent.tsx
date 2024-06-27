@@ -26,7 +26,7 @@ const QuizComponent: React.FC<Props> = ({ index, removeQuiz }) => {
             <label className="label_create_course">Quiz Title:</label>
             <input
                 type="text"
-                {...register(`contents.${index}.value.title` as const, { required: true })}
+                {...register(`contents.${index}.title` as const, { required: true })}
             />
             {questionFields.map((questionField, questionIndex) => (
                 <div key={questionField.id}>

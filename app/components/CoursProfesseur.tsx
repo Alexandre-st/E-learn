@@ -1,57 +1,26 @@
 "use client"
 import React from 'react';
 import YouTube from "react-youtube";
+import {CoursProfesseurProps, Quiz} from "../../types/types";
+import Image from 'next/image';
 
-type Inputs = {
-    titre: string;
-    description: string;
-    cours_content: Content[];
-    isPublic: boolean;
-    user: number;
-};
-
-type Content = {
-    type: "text" | "video" | "quiz";
-    value: string | Quiz;
-};
-
-interface Quiz {
-    title: string;
-    questions: Question[];
-}
-
-interface Question {
-    question: string;
-    answers: string[];
-    correctAnswer: number;
-}
-
-interface CoursProfesseurProps {
-    cours: Inputs;
-    isPublished: boolean;
-    user: User | undefined;
-    publish: () => void;
-    _onReady: (event: any) => void;
-    extractYouTubeID: (url: string) => string | null;
-}
-
-type User = {
-    id: number;
-    role: string;
-}
-
-const CoursProfesseur: React.FC<CoursProfesseurProps> = ({ cours, isPublished, user, publish, _onReady, extractYouTubeID }) => {
+const CoursProfesseur: React.FC<CoursProfesseurProps> = ({ cours, isPublished, publish, _onReady, extractYouTubeID }) => {
     return (
         <>
             <div>
-                {!isPublished && user?.id === cours.user &&
+                {!isPublished &&
                     <input type="submit" value="Publier le cours" className="submit_create_course" onClick={publish} />
                 }
+                <Image alt="course image" src={cours.imageUrl} width="300" height="300"/>
                 <h1>{cours.titre}</h1>
                 <p>{cours.description}</p>
                 {cours.cours_content.map((content, index) => (
                     <div key={index}>
-                        {content.type === "text" && <p>{content.value as string}</p>}
+                        {content.type === "text" &&
+                            <>
+                            <p>{content.title as string}</p>
+                            <p>{content.value as string}</p>
+                        </>}
                         {content.type === "video" && (() => {
                             const videoId = extractYouTubeID(content.value as string);
                             return videoId ? (
@@ -62,7 +31,7 @@ const CoursProfesseur: React.FC<CoursProfesseurProps> = ({ cours, isPublished, u
                         })()}
                         {content.type === "quiz" && (
                             <div>
-                                <h2>{(content.value as Quiz).title}</h2>
+                                <h2>{content.title}</h2>
                                 {(content.value as Quiz).questions.map((question, qIndex) => (
                                     <div key={qIndex}>
                                         <h3>{question.question}</h3>
