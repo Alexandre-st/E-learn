@@ -90,7 +90,7 @@ const SignUpForm = () => {
         />
         {errors.confirmPassword && <p role='alert'>{errors.confirmPassword.message}</p>}
       </div>
-      {error && <p role='alert'>{error}</p>}
+      {error && <p className="alert" role='alert'>{error}</p>}
       <button className='button' type='submit'>S&apos;inscrire</button>
     </form>
   );

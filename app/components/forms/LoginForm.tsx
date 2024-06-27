@@ -61,7 +61,7 @@ const LoginForm = () => {
           />
           {errors.password && <p role='alert'>{errors.password.message}</p>}
         </div>
-        {error && <p role='alert'>{error}</p>}
+        {error && <p className="alert" role='alert'>{error}</p>}
         <button className='button'>Se connecter</button>
       </form>
       <Image className='login-image' src={loginPicture} alt="Illustration de l'authentification" />

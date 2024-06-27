@@ -39,6 +39,7 @@
       color: var(--red);
       text-indent: 1.4rem;
       margin-top: 0.4rem;
+      font-size: 1.2rem;
     }
   }
 
@@ -48,6 +49,12 @@
     @include mq(tablet) {
       margin-top: 6rem;
     }
+  }
+
+  & .alert {
+    color: var(--red);
+    text-align: center;
+    font-size: 1.6rem;
   }
 }
 
