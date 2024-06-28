@@ -1,0 +1,62 @@
+@use '../base/mixins' as *;
+
+.card-container {
+  display: grid;
+  // grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 4rem;
+  margin-top: 5rem;
+}
+
+.card {
+  border-radius: 15px;
+  border: 1px solid var(--border-card-color);
+  background-color: var(--background-light);
+  box-shadow: 0px 1.6rem 3rem -1rem rgba(70, 96, 187, 0.2);
+  padding: 1.5rem;
+
+  @include mq(tablet) {
+    max-width: 300px;
+  }
+
+  &-title {
+    font-size: 1.6rem;
+    font-weight: 500;
+    line-height: 2.8rem;
+    padding: 1.4rem 0;
+
+    @include mq(tablet) {
+      font-size: 18px;
+    }
+  }
+
+  &-description {
+    font-size: 1.5rem;
+    font-weight: 400;
+    line-height: 2.4rem;
+    color: var(--text-color);
+  }
+
+  &-link {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem 0 1rem 0;
+    border-top: 1px solid var(--border-card-color);
+
+    &-author {
+      font-size: 1.5rem;
+      font-weight: 400;
+      line-height: 2.5rem;
+      color: var(--text-color);
+    }
+
+    &-img {
+      border-radius: 8px;
+      background: #fff;
+      box-shadow: -4px 4px 20px 0px rgba(70, 96, 187, 0.2);
+      padding: 1rem;
+    }
+  }
+}
+

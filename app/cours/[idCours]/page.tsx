@@ -1,9 +1,9 @@
 "use client"
-import React, {useEffect, useState} from 'react';
-import {createClient} from '@supabase/supabase-js';
-import {getUser} from "../../nouveau-cours/action";
+import { createClient } from '@supabase/supabase-js';
+import React, { useEffect, useState } from 'react';
 import CoursProfesseur from "../../components/CoursProfesseur";
 import {Inputs, User} from "../../../types/types";
+import { getUser } from "../../nouveau-cours/action";
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
@@ -22,19 +22,19 @@ const App = ({params}: { params: { idCours: number } }) => {
                 .eq('id', params.idCours)
                 .single();
 
-            console.log(cours);
+            // console.log(cours);
 
             if (error) {
                 console.error('Erreur lors de la récupération des cours:', error);
             } else {
                 setCours(cours);
                 setIsPublished(cours.isPublic);
-                console.log(cours);
+                // console.log(cours);
             }
 
             const user = await getUser();
             setUser(user);
-            console.log(user.id);
+            // console.log(user.id);
         };
         getData();
 

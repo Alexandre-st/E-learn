@@ -99,7 +99,7 @@ const App: React.FC = () => {
             alert('Les données ont été insérées avec succès !');
 
         } catch (error) {
-            console.error('API error:', error);
+            // console.error('API error:', error);
             alert('Erreur lors de la communication avec le serveur');
         }
     };

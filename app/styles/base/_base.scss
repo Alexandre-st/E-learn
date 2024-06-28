@@ -18,11 +18,11 @@
 }
 
 .container {
-  width: min(100% - 4rem, 120rem);
+  width: min(100% - 4rem, 132rem);
   margin-inline: auto;
 
   @include mq(tablet) {
-    width: min(100% - 6rem, 120rem);
+    width: min(100% - 6rem, 132rem);
   }
 }
 
@@ -48,9 +48,14 @@ h6 {
 }
 
 .mid-title {
-  font-size: 4.8rem;
-  line-height: 4.8rem;
-  letter-spacing: -2.143px;
+  font-size: 3.4rem;
+  line-height: 3.4rem;
+  
+  @include mq(tablet) {
+    font-size: 4.8rem;
+    line-height: 4.8rem;
+    letter-spacing: -1px;
+  }
 }
 
 .lil-title {
@@ -85,3 +90,6 @@ h6 {
   }
 }
 
+.blue {
+  color: var(--blue);
+}
