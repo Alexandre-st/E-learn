@@ -1,7 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     images: {
-        domains: ['usamkqtvaqvkhsfahlqq.supabase.co'],
+        loader: 'custom',
+        loaderFile: '/supabase-image-loader.js',
     },
 };
 

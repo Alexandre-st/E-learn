@@ -50,8 +50,6 @@ const App = ({params}: { params: { idCours: number } }) => {
             {user?.role === "professeur" &&
             <CoursPreview
                 cours={cours}
-                isPublished={isPublished}
-                user={user}
             />
             }
         </>

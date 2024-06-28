@@ -7,11 +7,13 @@ export type typeInputs = {
 };
 
 export type Inputs = {
+  id: number;
   titre: string;
   description: string;
   cours_content: Content[];
   isPublic: boolean;
   user: number;
+  imageUrl: string | null;
 };
 
 export type Content = {
@@ -46,8 +48,6 @@ export type CoursProfesseurProps = {
 
 export type CoursPreviewProps = {
   cours: Inputs;
-  isPublished: boolean;
-  user: User | undefined;
 }
 
 export type NouveauCoursInputs = {

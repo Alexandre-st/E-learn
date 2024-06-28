@@ -1,10 +1,11 @@
 "use client"
 // pages/index.tsx
-import { createClient, User } from '@supabase/supabase-js';
-import React from "react";
-import { FormProvider, SubmitHandler, useFieldArray, useForm } from "react-hook-form";
+import {createClient, User} from '@supabase/supabase-js';
+import React, {useState} from "react";
+import {FormProvider, SubmitHandler, useFieldArray, useForm} from "react-hook-form";
 import QuizComponent from "../components/QuizComponent";
-import { getUser, goTo } from "./action";
+import {getUser, goTo} from "./action";
+import {NouveauCoursInputs} from "../../types/types";
 
 type Inputs = {
     title: string;
@@ -42,8 +43,8 @@ const App: React.FC = () => {
         },
     });
 
-    const { register, handleSubmit, formState: { errors }, control } = methods;
-    const { fields, append, remove } = useFieldArray<NouveauCoursInputs>({
+    const {register, handleSubmit, formState: {errors}, control} = methods;
+    const {fields, append, remove} = useFieldArray<NouveauCoursInputs>({
         control,
         name: "contents",
     });
@@ -54,13 +55,13 @@ const App: React.FC = () => {
         try {
             let image = null;
             if (imageFile) {
-                const { data, error } = await supabase.storage
+                const {data, error} = await supabase.storage
                     .from('cours_images')
                     .upload(`/public/${imageFile.name}`, imageFile);
 
                 if (error) {
                     if (error.statusCode !== "409") {
-                        if (error.statusCode === "415"){
+                        if (error.statusCode === "415") {
                             console.error('Error uploading image:', error);
                             alert("Erreur lors du téléchargement de l\'image: Le type de fichier n\'est pas supporté");
                             return;
@@ -70,16 +71,10 @@ const App: React.FC = () => {
                         return;
                     }
                 }
-
-                const { data: imageUrl } = supabase
-                    .storage
-                    .from('public-bucket')
-                    .getPublicUrl(`/public/${imageFile.name}`);
-                image = imageUrl.publicUrl;
-                console.log(image);
+                image = `/public/${imageFile.name}`;
             }
 
-            const { data, error } = await supabase
+            const {data, error} = await supabase
                 .from('cours')
                 .insert([
                     {
@@ -118,7 +113,7 @@ const App: React.FC = () => {
     return (
         <>
             <FormProvider {...methods}>
-                <form onSubmit={handleSubmit(onSubmit)} style={{ textAlign: "center" }}>
+                <form onSubmit={handleSubmit(onSubmit)} style={{textAlign: "center"}}>
                     <div className="layout_title_course">
                         <h1 className="title_course">Enregistrer le cours</h1>
                         <input type="submit" value="Enregistrer le cours" className="submit_create_course"/>
@@ -126,21 +121,21 @@ const App: React.FC = () => {
 
                     <div>
                         <label className="title_course">Titre du cours :</label>
-                        <input {...register("title", { required: true })} className="input_create_course"/>
+                        <input {...register("title", {required: true})} className="input_create_course"/>
                         {errors.title && <span>Ce champ est requis</span>}
                     </div>
                     <br/>
 
                     <div>
                         <label className="label_create_course">Description :</label>
-                        <input {...register("description", { required: true })} />
+                        <input {...register("description", {required: true})} />
                         {errors.description && <span>Ce champ est requis</span>}
                     </div>
                     <br/>
 
                     <div>
                         <label className="label_create_course">Image du cours :</label>
-                        <input type="file" onChange={handleImageChange} />
+                        <input type="file" onChange={handleImageChange}/>
                     </div>
                     <br/>
 
@@ -152,21 +147,23 @@ const App: React.FC = () => {
                                         <label className="label_create_course">Insérez un texte</label>
                                         <br/>
                                         <textarea
-                                            {...register(`contents.${index}.title` as const, { required: true })}
+                                            {...register(`contents.${index}.title` as const, {required: true})}
                                             placeholder="Entrez votre titre"
                                         />
                                         <br/>
                                         <textarea
-                                            {...register(`contents.${index}.value` as const, { required: true })}
+                                            {...register(`contents.${index}.value` as const, {required: true})}
                                             placeholder="Entrez votre contenu texte"
                                         />
                                         <br/>
-                                        <button type="button" onClick={() => remove(index)}>Supprimer ce champ de texte</button>
+                                        <button type="button" onClick={() => remove(index)}>Supprimer ce champ de
+                                            texte
+                                        </button>
                                     </>
                                 )}
                                 {field.type === "quiz" && (
                                     <>
-                                        <QuizComponent index={index} removeQuiz={() => remove(index)} />
+                                        <QuizComponent index={index} removeQuiz={() => remove(index)}/>
                                         <br/>
                                     </>
                                 )}
@@ -175,11 +172,12 @@ const App: React.FC = () => {
                                         <label className="label_create_course">Insérez votre lien vidéo YouTube</label>
                                         <br/>
                                         <textarea
-                                            {...register(`contents.${index}.value` as const, { required: true })}
+                                            {...register(`contents.${index}.value` as const, {required: true})}
                                             placeholder="Entrez votre lien vidéo"
                                         />
                                         <br/>
-                                        <button type="button" onClick={() => remove(index)}>Supprimer cette vidéo</button>
+                                        <button type="button" onClick={() => remove(index)}>Supprimer cette vidéo
+                                        </button>
                                         <br/>
                                     </>
                                 )}
@@ -189,13 +187,13 @@ const App: React.FC = () => {
                             </div>
                         ))}
                     </div>
-                    <button type="button" onClick={() => append({ type: "text", value: "", title: "" })}>
+                    <button type="button" onClick={() => append({type: "text", value: "", title: ""})}>
                         Ajouter un texte
                     </button>
-                    <button type="button" onClick={() => append({ type: "quiz", value: { questions: [] }, title: "" })}>
+                    <button type="button" onClick={() => append({type: "quiz", value: {questions: []}, title: ""})}>
                         Créer un quiz
                     </button>
-                    <button type="button" onClick={() => append({ type: "video", value: "", title: "" })}>
+                    <button type="button" onClick={() => append({type: "video", value: "", title: ""})}>
                         Ajouter une vidéo
                     </button>
                     <br/>
