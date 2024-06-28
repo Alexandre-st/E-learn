@@ -45,7 +45,7 @@ const SignUpForm = () => {
         {errors.lastname && <p role='alert'>{errors.lastname.message}</p>}
       </div>
       <div className='inputStyle'>
-        <label htmlFor='email'>Email:</label>
+        <label htmlFor='email'>Email</label>
         <input
           type='email'
           id='email'
@@ -62,7 +62,7 @@ const SignUpForm = () => {
         {errors.email && <p role='alert'>{errors.email.message}</p>}
       </div>
       <div className='inputStyle'>
-        <label htmlFor='password'>Password:</label>
+        <label htmlFor='password'>Mot de passe</label>
         <input
           type='password'
           id='password'
@@ -78,7 +78,7 @@ const SignUpForm = () => {
         {errors.password && <p role='alert'>{errors.password.message}</p>}
       </div>
       <div className='inputStyle'>
-        <label htmlFor='confirmPassword'>Confirmez votre mot de passe :</label>
+        <label htmlFor='confirmPassword'>Confirmez votre mot de passe</label>
         <input
           type='password'
           id='confirmPassword'

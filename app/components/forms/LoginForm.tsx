@@ -33,7 +33,7 @@ const LoginForm = () => {
     <section className='login'>
       <form className='form' onSubmit={handleSubmit(onSubmit)}>
         <div className='inputStyle'>
-          <label htmlFor='email'>Email:</label>
+          <label htmlFor='email'>Email</label>
           <input
             type='email'
             id='email'
@@ -50,7 +50,7 @@ const LoginForm = () => {
           {errors.email && <p role='alert'>{errors.email.message}</p>}
         </div>
         <div className='inputStyle'>
-          <label htmlFor='password'>Password:</label>
+          <label htmlFor='password'>Password</label>
           <input
             type='password'
             id='password'

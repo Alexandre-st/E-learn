@@ -1,4 +1,5 @@
-const Page = () => {
+const About = () => {
+
   return (
     <section>
       <div className="container">
@@ -8,4 +9,4 @@ const Page = () => {
   );
 }
  
-export default Page;
+export default About;

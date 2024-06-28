@@ -3,9 +3,10 @@ import { Metadata } from 'next';
 import Image from 'next/image';
 import { redirect } from 'next/navigation';
 import { typeCourses } from '../../types/types';
-import { createClient } from '../../utils/supabase/client';
+import { createClient } from '../../utils/supabase/server';
 import profilePic from '../assets/Profile_pic.svg';
 import CoursComponent from '../components/CoursComponent';
+import UpdateProfile from '../components/UpdateProfile';
 import { getUser } from '../hooks/getUser';
 
 export const metadata: Metadata = {
@@ -15,6 +16,7 @@ export const metadata: Metadata = {
 const Profile: React.FC = async () => {
   const user = await getUser();
   const supabase = createClient();
+  
   const { data: cours, error } = await supabase
     .from('cours')
     .select('*, user (id, firstname, lastname, role)')
@@ -33,7 +35,7 @@ const Profile: React.FC = async () => {
       <div className='container'>
         <div className='profile-header'>
           <h1 className='mid-title'>Dashboard</h1>
-          <button className='button'>Modifier mon profil</button>
+          <UpdateProfile user={user} />
         </div>
         <div className='profile-content'>
           <div className='profile-content-image'>
