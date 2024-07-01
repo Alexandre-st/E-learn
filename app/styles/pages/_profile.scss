@@ -48,3 +48,42 @@
   }
 }
 
+// Update the profile page
+.modal {
+  position: fixed;
+  inset: 0;
+  height: 100svh;
+  display: grid;
+  align-content: center;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 2;
+
+  &-container {
+    margin: 0 2rem;
+    position: relative;
+    padding: 2rem;
+    background-color: var(--background);
+    border-radius: 15px;
+
+    @include mq(tablet) {
+      max-width: 72.8rem;
+      width: 100%;
+      margin: auto;
+    }
+  }
+
+  &-button {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  &-form {
+    margin-top: 4rem;
+  }
+}
+

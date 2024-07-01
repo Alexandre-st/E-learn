@@ -3,7 +3,6 @@ import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 
 import { Provider } from '@supabase/supabase-js';
-import bcrypt from 'bcrypt';
 import { typeInputs } from '../../types/types';
 import { createClient } from '../../utils/supabase/server';
 
@@ -11,32 +10,22 @@ import { createClient } from '../../utils/supabase/server';
 export async function login(data: typeInputs) {
   const supabase = createClient();
 
-  // Fetch the user data from the database
-  const { data: userData, error: fetchError } = await supabase
-    .from('user')
-    .select('email, password')
-    .eq('email', data.email)
-    .single();
-
-  if (fetchError || !userData) {
-    return { error: 'Les informations que vous avez entrées sont incorrectes.' };
-  }
-
-  // Verify the password
-  const passwordMatch = await bcrypt.compare(data.password, userData.password);
-
-  if (!passwordMatch) {
-    return { error: 'Les informations que vous avez entrées sont incorrectes.' };
-  }
-
   // Sign in the user
-  const { error: loginError } = await supabase.auth.signInWithPassword({
+  const { data: signInData, error: loginError } = await supabase.auth.signInWithPassword({
     email: data.email,
     password: data.password,
   });
 
   if (loginError) {
     return { error: 'Les informations que vous avez entrées sont incorrectes.' };
+  }
+
+  const {
+    data: { user },
+    error: userError,
+  } = await supabase.auth.getUser();
+  if (userError) {
+    return { error: 'Impossible de récupérer les informations utilisateur.' };
   }
 
   // Redirect to the home page after successful login
@@ -62,15 +51,10 @@ export async function signup(data: typeInputs) {
   // Give the user a default role
   const role = 'user';
 
-  // Hash the password
-  const hashedPassword = await bcrypt.hash(data.password, 10);
-
   const { error: insertError } = await supabase.from('user').insert([
     {
       firstname: data.firstname,
       lastname: data.lastname,
-      email: data.email,
-      password: hashedPassword,
       role: role,
       user_id: user?.id,
     },
@@ -83,6 +67,34 @@ export async function signup(data: typeInputs) {
   // Return success response & redirect
   revalidatePath('/', 'layout');
   redirect('/');
+}
+
+// To update user information
+export async function updateUser(data: typeInputs) {
+  const supabase = createClient();
+
+  const { data: updateData, error: updateError } = await supabase.auth.updateUser({
+    password: data.password,
+  });
+
+  if (updateError) {
+    return { error: 'Erreur lors de la modification du profile' };
+  }
+
+  // Get the fresh user who just updated his profile
+  const user = updateData.user;
+
+  const updates: any = {};
+
+  if (data.firstname) updates.firstname = data.firstname;
+  if (data.lastname) updates.lastname = data.lastname;
+  if (data.avatar) updates.avatar = data.avatar;
+
+  const { error: insertError } = await supabase.from('user').update([updates]).eq('user_id', user.id);
+
+  if (insertError) {
+    return { error: "Erreur lors de l'inscription." };
+  }
 }
 
 export async function oAuthSignIn(provider: Provider) {
