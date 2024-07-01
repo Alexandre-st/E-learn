@@ -17,10 +17,7 @@ const Profile: React.FC = async () => {
   const user = await getUser();
   const supabase = createClient();
   
-  const { data: cours, error } = await supabase
-    .from('cours')
-    .select('*, user (id, firstname, lastname, role)')
-    .eq('user', user.id);
+  const { data: cours, error } = await supabase.from('cours').select('*, user (id, firstname, lastname, role)').eq('user', user.id);
 
   if (!user) {
     redirect('/login');

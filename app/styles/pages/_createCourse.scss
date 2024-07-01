@@ -1,44 +1,151 @@
-.layout_title_course {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  width: 100%;
-  margin: 1%;
+@use '../base/mixins' as *;
+
+.createCourse {
+  .layout_title_course {
+    display: flex;
+    flex-direction: column;
+    .button {
+      margin-top: 2rem;
+    }
+
+    @include mq(tablet) {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+
+      .button {
+        margin-top: 0;
+      }
+    }
+  }
+
+  .title_course {
+    margin-top: 4rem;
+
+    @include mq(tablet) {
+      display: flex;
+      align-items: center;
+      gap: 4rem;
+
+      label {
+        padding: 0 !important;
+      }
+
+      input {
+        flex: 1;
+        padding: 1.2rem !important;
+        max-width: 400px;
+        margin-top: 0 !important;
+      }
+    }
+  }
+
+  & .contentCourse {
+    button {
+      font-size: 1.3rem;
+    }
+
+    .shy-title {
+      text-align: center;
+      margin: 5rem 0 3rem;
+    }
+
+    .button {
+      margin: auto;
+      margin-top: 2rem;
+
+      @include mq(tablet) {
+        margin: 4rem 0 0 auto;
+      }
+    }
+
+    .textContent {
+      margin-top: 2rem;
+    }
+
+    .quizContent {
+      margin-top: 3rem;
+      position: relative;
+
+      &-answer {
+        display: flex;
+        flex-direction: column;
+        gap: 3rem;
+        margin-top: 4rem;
+
+        & .inputStyle.radio {
+          display: flex;
+          align-items: center;
+          gap: 6rem;
+          margin: 2rem 0;
+
+          input {
+            width: fit-content;
+          }
+        }
+
+        button {
+          margin-left: auto;
+        }
+
+        @include mq(tablet) {
+          flex-direction: row;
+          gap: 6rem;
+          justify-content: center;
+          flex-wrap: wrap;
+          margin-top: 5rem;
+
+          .inputStyle {
+            width: 260px;
+          }
+        }
+      }
+
+      & .deleteAnswer {
+        position: absolute;
+        bottom: 0rem;
+      }
+    }
+
+    & .quizButton {
+      display: flex;
+      align-items: center;
+      gap: 3rem;
+      justify-content: flex-end;
+
+      button {
+        margin: 2rem 0;
+      }
+    }
+  }
+
+  & .creation {
+    & .buttonCreate {
+      display: flex;
+      justify-content: space-between;
+      gap: 2rem;
+      margin-top: 3rem;
+
+      button {
+        font-size: 1.2rem;
+
+        @include mq(tablet) {
+          font-size: 1.6rem;
+        }
+      }
+
+      @include mq(tablet) {
+        justify-content: end;
+        gap: 4rem;
+        margin-top: 5rem;
+      }
+    }
+  }
+
+  .videoContent {
+    button {
+      margin-top: 3rem;
+    }
+  }
 }
 
-.title_course {
-  color: var(--Primary-900, #06241B);
-  text-align: center;
-  font-family: "Space Mono", serif;
-  font-size: 44px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: 72px;
-}
-
-.submit_create_course {
-  display: flex;
-  padding: 13px 30px;
-  justify-content: center;
-  align-items: flex-start;
-  gap: 10px;
-  font-size: large;
-
-  border-radius: 10px;
-  border: none;
-  color: white;
-  background: #0079FF;
-}
-
-.input_create_course {
-  align-items: center;
-}
-
-.label_create_course {
-  color: #000;
-  font-family: "Space Mono", serif;
-  font-size: 18px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 25px;
-}
