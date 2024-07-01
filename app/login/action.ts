@@ -20,10 +20,8 @@ export async function login(data: typeInputs) {
     return { error: 'Les informations que vous avez entrées sont incorrectes.' };
   }
 
-  const {
-    data: { user },
-    error: userError,
-  } = await supabase.auth.getUser();
+  const { error: userError } = await supabase.auth.getUser();
+
   if (userError) {
     return { error: 'Impossible de récupérer les informations utilisateur.' };
   }
@@ -64,9 +62,11 @@ export async function signup(data: typeInputs) {
     return { error: "Erreur lors de l'inscription." };
   }
 
-  // Return success response & redirect
-  revalidatePath('/', 'layout');
-  redirect('/');
+  if (!signupError && !insertError) {
+    // Return success response & redirect
+    revalidatePath('/', 'layout');
+    redirect('/');
+  }
 }
 
 // To update user information

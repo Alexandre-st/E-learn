@@ -88,6 +88,14 @@ h6 {
   &:hover {
     background-color: var(--hover-blue);
   }
+
+  &-white {
+    @extend .button;
+    border: 1px solid #E6E8EA;
+    background-color: var(--white);
+    box-shadow: 0px 16px 30px -10px rgba(70, 88, 109, 0.20);
+    color: #141D2F;
+  }
 }
 
 .blue {

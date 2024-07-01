@@ -1,5 +1,4 @@
 const About = () => {
-
   return (
     <section>
       <div className="container">
