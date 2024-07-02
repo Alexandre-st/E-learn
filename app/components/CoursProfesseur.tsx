@@ -9,7 +9,7 @@ const CoursProfesseur: React.FC<CoursProfesseurProps> = ({cours, isPublished, pu
         <>
             <div>
                 {cours.imageUrl &&
-                    <Image alt="course image" src={cours.imageUrl} width={300} height={170}/>
+                    <Image alt="course image" src={`https://usamkqtvaqvkhsfahlqq.supabase.co/storage/v1/object/public/cours_images/${cours.imageUrl}?width=${300}&quality=${75}`} width={300} height={170}/>
                 }
                 {!isPublished &&
                     <input type="submit" value="Publier le cours" className="submit_create_course" onClick={publish}/>
