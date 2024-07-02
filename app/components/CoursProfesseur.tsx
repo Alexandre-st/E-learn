@@ -3,13 +3,14 @@ import React from 'react';
 import YouTube from "react-youtube";
 import {CoursProfesseurProps, Quiz} from "../../types/types";
 import Image from 'next/image';
+import SupabaseImage from "./SupabaseImage";
 
 const CoursProfesseur: React.FC<CoursProfesseurProps> = ({cours, isPublished, publish, _onReady, extractYouTubeID}) => {
     return (
         <>
             <div>
                 {cours.imageUrl &&
-                    <Image alt="course image" src={cours.imageUrl} width={300} height={170}/>
+                    <SupabaseImage src={cours.imageUrl} width={300} height={170} location="cours_images" alt="Photo du cours" />
                 }
                 {!isPublished &&
                     <input type="submit" value="Publier le cours" className="submit_create_course" onClick={publish}/>

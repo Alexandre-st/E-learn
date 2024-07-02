@@ -1,9 +1,9 @@
 "use client"
 import React from 'react';
 import {CoursPreviewProps} from "../../types/types";
-import Image from "next/image";
 import {getUser} from "../hooks/getUser";
 import {createUserCours} from "../cours-preview/[idCours]/action";
+import SupabaseImage from "./SupabaseImage";
 
 const CoursPreview: React.FC<CoursPreviewProps> = ({cours}) => {    
     const followCourse = async () => {
@@ -34,7 +34,7 @@ const CoursPreview: React.FC<CoursPreviewProps> = ({cours}) => {
                 <div>
                     {
                         cours.imageUrl &&
-                        <Image alt="course image" src={cours.imageUrl} width={300} height={170}/>
+                        <SupabaseImage alt="course image" src={cours.imageUrl} width={300} height={170} location="cours_images"/>
                     }
                     <h1 className="title_course">{cours.titre}</h1>
                     <h2>Description</h2>
