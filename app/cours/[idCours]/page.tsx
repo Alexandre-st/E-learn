@@ -67,7 +67,7 @@ const App = ({params}: { params: { idCours: number } }) => {
 
     return (
         <>
-            {user?.id !== cours.user &&
+            {user?.id === cours.user &&
             <CoursProfesseur
                 cours={cours}
                 isPublished={isPublished}
@@ -76,7 +76,7 @@ const App = ({params}: { params: { idCours: number } }) => {
                 extractYouTubeID={extractYouTubeID}
             />
             }
-            {user?.id === cours.user &&
+            {user?.id !== cours.user &&
                 <CoursEleve
                     cours={cours}
                     _onReady={_onReady}
