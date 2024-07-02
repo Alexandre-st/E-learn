@@ -19,7 +19,10 @@ const Profile: React.FC = async () => {
   const user = await getUser();
   const supabase = createClient();
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-  const { data: cours } = await supabase.from('cours').select('*, user (id, firstname, lastname, role, avatar)').eq('user', user.id);
+  const { data: cours } = await supabase
+    .from('cours')
+    .select('*, user (id, firstname, lastname, role, avatar)')
+    .eq('user', user.id);
 
   if (!user) {
     redirect('/login');
@@ -39,7 +42,9 @@ const Profile: React.FC = async () => {
         <div className='profile-content'>
           <div className='profile-content-image'>
             <Image src={profilePic} alt={`${user.firstname} picture`} priority={false} />
-            <SupabaseImage src={user.avatar} width={100} height={100} location="avatars" alt={user.firstname} />
+            {user.avatar && (
+              <SupabaseImage src={user.avatar} width={100} height={100} location='avatars' alt={user.firstname} />
+            )}
             <UpdateAvatar />
           </div>
           <div className='profile-content-name'>
