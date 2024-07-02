@@ -12,7 +12,7 @@ export async function createUserCours(idUser: number, idCours: number){
         ])
         .select()
 
-    // redirect(`/cours/${idCours}`);
+    redirect(`/cours/${idCours}`);
 
     return error;
 }
