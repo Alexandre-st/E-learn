@@ -1,0 +1,37 @@
+@use '../base/mixins' as *;
+
+.liveCourse {
+  position: relative;
+
+  .buttonFloat {
+    margin: auto;
+
+    @include mq(tablet) {
+      position: absolute;
+      right: 0;
+    }
+  }
+
+  &-step {
+    position: fixed;
+    right: 0;
+    background-color: var(--background);
+    border-left: 1px solid #000;
+    top: 10.5rem;
+    bottom: 0; 
+    padding: 5rem 2rem 2rem 2rem;
+    z-index: 2;
+
+    &-img {
+      padding: 1rem 0;
+      width: 2.2rem;
+      height: fit-content;
+      position: relative;
+      z-index: 2;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+}

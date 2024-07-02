@@ -27,8 +27,9 @@ const CoursPreview = ({ params }: { params: { idCours: number } }) => {
 
       const user = await getUser();
       setUser(user);
-      console.log(user.id);
+      // console.log(user.id);
     };
+    
     getData();
   }, [supabase, params.idCours]);
 
