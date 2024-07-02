@@ -47,10 +47,9 @@ const UpdateForm = (props: Props) => {
   return (
     <section className='modal-form'>
       <form onSubmit={handleSubmit(onSubmit)} className='form'>
-        {/* <div className='inputStyle'>
+        <div className='inputStyle'>
           <label htmlFor='avatar'>Modifier votre photo de profil</label>
-          <input type='file' id='avatar' {...register('avatar')} />
-        </div> */}
+        </div>
         <div className='inputStyle'>
           <label htmlFor='firstname'>Prénom</label>
           <input type='text' id='firstname' {...register('firstname')} placeholder={user.firstname} />
@@ -59,7 +58,6 @@ const UpdateForm = (props: Props) => {
           <label htmlFor='lastname'>Nom</label>
           <input type='text' id='lastname' {...register('lastname')} placeholder={user.lastname} />
         </div>
-        {/* <input {...register('avatar')} placeholder={userInfo ? userInfo.avatar : "URL de l'avatar"} /> */}
         <div className='inputStyle'>
           <label htmlFor='password'>Mot de passe :</label>
           <input
