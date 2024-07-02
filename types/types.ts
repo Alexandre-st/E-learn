@@ -47,6 +47,12 @@ export type CoursProfesseurProps = {
   extractYouTubeID: (url: string) => string | null;
 }
 
+export type CoursEleveProps = {
+  cours: Inputs;
+  _onReady: (event: any) => void;
+  extractYouTubeID: (url: string) => string | null;
+}
+
 export type CoursPreviewProps = {
   cours: Inputs;
 }

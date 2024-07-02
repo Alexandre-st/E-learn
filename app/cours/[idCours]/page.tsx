@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import CoursProfesseur from "../../components/CoursProfesseur";
 import {Inputs, User} from "../../../types/types";
 import { getUser } from "../../nouveau-cours/action";
+import CoursEleve from "../../components/CoursEleve";
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
@@ -74,6 +75,13 @@ const App = ({params}: { params: { idCours: number } }) => {
                 _onReady={_onReady}
                 extractYouTubeID={extractYouTubeID}
             />
+            }
+            {user?.id !== cours.user &&
+                <CoursEleve
+                    cours={cours}
+                    _onReady={_onReady}
+                    extractYouTubeID={extractYouTubeID}
+                />
             }
         </>
     );
