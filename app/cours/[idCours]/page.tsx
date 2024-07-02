@@ -1,19 +1,17 @@
 "use client"
-import { createClient } from '@supabase/supabase-js';
+import {createClient} from '../../../utils/supabase/client';
 import React, { useEffect, useState } from 'react';
 import CoursProfesseur from "../../components/CoursProfesseur";
 import {Inputs, User} from "../../../types/types";
-import { getUser } from "../../nouveau-cours/action";
+import { getUser } from "../../hooks/getUser";
 import CoursEleve from "../../components/CoursEleve";
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
-const supabase = createClient(supabaseUrl, supabaseKey);
+const supabase = createClient();
 
 const App = ({params}: { params: { idCours: number } }) => {
     const [cours, setCours] = useState<Inputs | null>(null);
     const [isPublished, setIsPublished] = useState(false);
-    const [user, setUser] = useState<User>();
+    const [user, setUser] = useState<User | undefined>(undefined);
 
     useEffect(() => {
         const getData = async () => {
@@ -23,19 +21,15 @@ const App = ({params}: { params: { idCours: number } }) => {
                 .eq('id', params.idCours)
                 .single();
 
-            // console.log(cours);
-
             if (error) {
                 console.error('Erreur lors de la récupération des cours:', error);
             } else {
                 setCours(cours);
                 setIsPublished(cours.isPublic);
-                // console.log(cours);
             }
 
             const user = await getUser();
             setUser(user);
-            // console.log(user.id);
         };
         getData();
 
@@ -79,6 +73,7 @@ const App = ({params}: { params: { idCours: number } }) => {
             {user?.id !== cours.user &&
                 <CoursEleve
                     cours={cours}
+                    userId={user?.id}
                     _onReady={_onReady}
                     extractYouTubeID={extractYouTubeID}
                 />

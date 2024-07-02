@@ -5,11 +5,11 @@ import {Content, CoursEleveProps, Quiz} from "../../types/types";
 import {createClient} from '../../utils/supabase/client';
 import {getUser} from "../hooks/getUser";
 
-const CoursEleve: React.FC<CoursEleveProps> = ({cours, _onReady, extractYouTubeID}) => {
+
+const CoursEleve: React.FC<CoursEleveProps> = ({cours, userId, _onReady, extractYouTubeID}) => {
     const [content, setContent] = useState<Content>(cours.cours_content[0]);
     const [maxStep, setMaxStep] = useState(0);
     const [currentEtape, setCurrentEtape] = useState(0);
-    const [user, setUser] = useState<any>(null);
     const [quizAnswers, setQuizAnswers] = useState<{ [questionIndex: number]: number }>({});
     const [bool, setBool] = useState(false);
     const [note, setNote] = useState(0);
@@ -17,39 +17,20 @@ const CoursEleve: React.FC<CoursEleveProps> = ({cours, _onReady, extractYouTubeI
 
     useEffect(() => {
         const getData = async () => {
-            const userInfos = await getUser();
             const {
                 data: etape,
                 error
-            } = await supabase.from('user_cours').select('*').eq('user', userInfos.id).eq('cours', cours.id).single();
+            } = await supabase.from('user_cours').select('*').eq('user', userId).eq('cours', cours.id).single();
             if (error) {
                 console.error("Erreur lors de la récupération de l'étape:", error);
                 return;
             }
             setMaxStep(etape.etape);
-            setUser(userInfos.id);
-
-            // Si appel de handleChangeStep, le user est null a ce moment
-            if (content.type === 'quiz') {
-                const {data} = await supabase
-                    .from('user_quiz')
-                    .select('*')
-                    .eq('user', userInfos.id)
-                    .eq('cours', cours.id)
-                    .eq('etape', etape.etape);
-                if (data?.length > 0) {
-                    setBool(true);
-                    setQuizAnswers(data[0].quiz);
-                } else {
-                    setQuizAnswers({});
-                }
-            }
-            setContent(cours.cours_content[etape.etape]);
-            setCurrentEtape(etape.etape);
+            handleChangeStep(etape.etape);
         };
-        getData();
+        if(userId) getData();
 
-    }, [cours.cours_content, cours.id, supabase]);
+    }, [cours.cours_content, cours.id, userId, supabase]);
 
     const handleChangeStep = async (index: number) => {
         setContent(cours.cours_content[index]);
@@ -57,7 +38,7 @@ const CoursEleve: React.FC<CoursEleveProps> = ({cours, _onReady, extractYouTubeI
             const {data} = await supabase
                 .from('user_quiz')
                 .select('*')
-                .eq('user', user)
+                .eq('user', userId)
                 .eq('cours', cours.id)
                 .eq('etape', index);
             if (data?.length > 0) {
@@ -72,10 +53,11 @@ const CoursEleve: React.FC<CoursEleveProps> = ({cours, _onReady, extractYouTubeI
     }
 
     const handleNextStep = async () => {
+        console.log(userId, currentEtape, cours.id);
         const {error} = await supabase
             .from('user_cours')
             .update({etape: currentEtape + 1})
-            .eq('user', user)
+            .eq('user', userId)
             .eq('cours', cours.id);
         if (error) {
             console.error("Erreur lors de la mise à jour de l'étape:", error);
@@ -96,7 +78,7 @@ const CoursEleve: React.FC<CoursEleveProps> = ({cours, _onReady, extractYouTubeI
         });
         const {error} = await supabase
             .from('user_quiz')
-            .insert({cours: cours.id, user: user, etape: currentEtape, quiz: quizAnswers, note: correctAnswersCount});
+            .insert({cours: cours.id, user: userId, etape: currentEtape, quiz: quizAnswers, note: correctAnswersCount});
         await handleChangeStep(currentEtape);
     }
 
