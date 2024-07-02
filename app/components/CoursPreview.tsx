@@ -5,8 +5,7 @@ import Image from "next/image";
 import {getUser} from "../hooks/getUser";
 import {createUserCours} from "../cours-preview/[idCours]/action";
 
-const CoursPreview: React.FC<CoursPreviewProps> = ({cours}) => {
-
+const CoursPreview: React.FC<CoursPreviewProps> = ({cours}) => {    
     const followCourse = async () => {
         const user = await getUser();
         const error = await createUserCours(user.id, cours.id);

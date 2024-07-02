@@ -8,6 +8,8 @@ import profilePic from '../assets/Profile_pic.svg';
 import CoursComponent from '../components/CoursComponent';
 import UpdateProfile from '../components/UpdateProfile';
 import { getUser } from '../hooks/getUser';
+import UpdateAvatar from '../components/UpdateAvatar';
+import SupabaseImage from '../components/SupabaseImage';
 
 export const metadata: Metadata = {
   title: 'Profil',
@@ -16,8 +18,8 @@ export const metadata: Metadata = {
 const Profile: React.FC = async () => {
   const user = await getUser();
   const supabase = createClient();
-  
-  const { data: cours, error } = await supabase.from('cours').select('*, user (id, firstname, lastname, role)').eq('user', user.id);
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
+  const { data: cours } = await supabase.from('cours').select('*, user (id, firstname, lastname, role, avatar)').eq('user', user.id);
 
   if (!user) {
     redirect('/login');
@@ -36,7 +38,9 @@ const Profile: React.FC = async () => {
         </div>
         <div className='profile-content'>
           <div className='profile-content-image'>
-            <Image src={profilePic} alt={`${user.firstname} picture`} />
+            <Image src={profilePic} alt={`${user.firstname} picture`} priority={false} />
+            <SupabaseImage src={user.avatar} width={100} height={100} location="avatars" alt={user.firstname} />
+            <UpdateAvatar />
           </div>
           <div className='profile-content-name'>
             <h3 className='shy-title'>
@@ -55,7 +59,7 @@ const Profile: React.FC = async () => {
                 Mes <span className='blue'>Cours</span>
               </h2>
               <div className='card-container'>
-                {cours.map((cour: typeCourses) => (
+                {cours?.map((cour: typeCourses) => (
                   <CoursComponent cour={cour} key={cour.id} />
                 ))}
               </div>

@@ -1,40 +1,16 @@
 'use client';
-// pages/index.tsx
-import { createClient, User } from '@supabase/supabase-js';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { FormProvider, SubmitHandler, useFieldArray, useForm } from 'react-hook-form';
 import QuizComponent from '../components/QuizComponent';
 import { getUser, goTo } from './action';
 import { NouveauCoursInputs } from '../../types/types';
+import { createClient } from '../../utils/supabase/client';
+import { toast } from 'sonner';
+import { Metadata } from 'next';
 
-type Inputs = {
-  title: string;
-  description: string;
-  contents: Content[];
-};
-
-type Content = {
-  type: 'text' | 'video' | 'quiz';
-  value: string | Quiz;
-};
-
-interface Question {
-  question: string;
-  answers: string[];
-  correctAnswer: number;
-}
-
-interface Quiz {
-  title: string;
-  questions: Question[];
-}
-
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
-const supabase = createClient(supabaseUrl, supabaseKey);
-
-const App: React.FC = () => {
+const NouveauCours: React.FC = () => {
   const [imageFile, setImageFile] = useState<File | null>(null);
+  const supabase = createClient();
   const methods = useForm<NouveauCoursInputs>({
     defaultValues: {
       title: '',
@@ -100,8 +76,7 @@ const App: React.FC = () => {
       }
 
       goTo(data.id);
-
-      alert('Les données ont été insérées avec succès !');
+      toast("Les données ont été insérées avec succès !")
     } catch (error) {
       // console.error('API error:', error);
       alert('Erreur lors de la communication avec le serveur');
@@ -120,7 +95,7 @@ const App: React.FC = () => {
         <form className='form' onSubmit={handleSubmit(onSubmit)}>
           <div className='layout_title_course'>
             <h1 className='mid-title'>Enregistrer le cours</h1>
-            <input type='submit' value='Enregistrer le cours' className='button' />
+            <button type='submit' className='button'>Enregistrer le cours</button>
           </div>
 
           <div className='inputStyle title_course'>
@@ -208,5 +183,5 @@ const App: React.FC = () => {
   );
 };
 
-export default App;
+export default NouveauCours;
 
