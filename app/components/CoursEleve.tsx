@@ -153,32 +153,32 @@ const CoursEleve: React.FC<CoursEleveProps> = ({ cours, _onReady, extractYouTube
           (() => {
             const videoId = extractYouTubeID(content.value as string);
             return videoId ? (
-              <>
+              <div className='videoContent'>
                 <YouTube videoId={videoId} onReady={_onReady} />
                 <button className='button' onClick={handleNextStep}>
                   Valider l&apos;étape
                 </button>
-              </>
+              </div>
             ) : (
-              <>
+              <div className='videoContent'>
                 <iframe src={content.value as string} title='Video Content' />
-                <button className='button' onClick={handleNextStep}>
+                <button className='button videoButton' onClick={handleNextStep}>
                   Valider l&apos;étape
                 </button>
-              </>
+              </div>
             );
           })()}
         {content.type === 'quiz' && (
           <div>
             <h2 className='lil-title'>{content.title}</h2>
             {(content.value as Quiz).questions.map((question, qIndex) => (
-              <div key={qIndex}>
+              <div className='quiz-content' key={qIndex}>
                 <h3 className='shy-title'>{question.question}</h3>
-                <ul>
+                <ul className='quiz-content-element'>
                   {question.answers.map((answer, aIndex) => (
                     <li key={aIndex}>
                       <label className={'label_answer'}>
-                        Réponse {aIndex + 1}: {answer}
+                        {answer}
                         <input
                           type='checkbox'
                           name={`question-${qIndex}`}
@@ -197,7 +197,11 @@ const CoursEleve: React.FC<CoursEleveProps> = ({ cours, _onReady, extractYouTube
                 </ul>
               </div>
             ))}
-            {!bool && <button onClick={handleQuiz}>Valider le quiz</button>}
+            {!bool && (
+              <button className='button quizButton' onClick={handleQuiz}>
+                Valider le quiz
+              </button>
+            )}
             {bool && (
               <>
                 <label>Votre note : {note}</label>

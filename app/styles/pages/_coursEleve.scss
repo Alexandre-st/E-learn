@@ -12,26 +12,116 @@
     }
   }
 
+  &-header {
+    margin-top: 4rem;
+
+    & .lil-title {
+      text-align: center;
+    }
+
+    & .quiz-content {
+      margin-top: 4rem;
+
+      &-element {
+        margin-top: 2rem;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 3rem;
+
+        @include mq(desktop) {
+          grid-template-columns: repeat(4, 1fr);
+        }
+
+        li {
+          background-color: var(--background-content);
+          padding: 2rem;
+
+          &:hover {
+            cursor: pointer;
+            background-color: var(--text-color);
+
+            label {
+              color: var(--background-content);
+              cursor: pointer;
+            }
+          }
+
+          label {
+            color: var(--text-color);
+            display: flex;
+            align-items: center;
+            flex-direction: row-reverse;
+            justify-content: flex-end;
+            gap: 2rem;
+
+            // input[type='checkbox'] {
+            //   appearance: none;
+            // }
+
+            // input[type='checkbox']:checked + & {
+            //   background-color: var(--white);
+            // }
+          }
+
+          // // Alternatively, you can achieve this using the adjacent sibling selector
+          // input[type='checkbox']:checked + & {
+          //   background-color: var(--background-checked);
+          // }
+        }
+      }
+    }
+
+    & .quizButton {
+      margin: 6rem auto 0;
+    }
+
+    & .videoContent {
+      iframe {
+        aspect-ratio: 16 / 9;
+        width: 100%;
+        height: fit-content;
+        
+        @include mq(tablet) {
+          max-width: 800px;
+          margin: 6rem auto 0;
+          display: flex;
+          justify-content: center;
+          height: auto;
+        }
+      }
+
+      button {
+        margin: 4rem auto 0;
+      }
+    }
+  }
+
   &-step {
     position: fixed;
-    right: 0;
     background-color: var(--background);
-    border-left: 1px solid #000;
-    top: 10.5rem;
-    bottom: 0; 
-    padding: 5rem 2rem 2rem 2rem;
-    z-index: 2;
+    bottom: 0;
+    padding: 0 2rem;
+    right: 0;
 
-    &-img {
-      padding: 1rem 0;
-      width: 2.2rem;
-      height: fit-content;
-      position: relative;
+    @include mq(tablet) {
+      border-left: 1px solid #000;
+      top: 10.5rem;
+      bottom: 0;
+      padding: 5rem 2rem 2rem 2rem;
       z-index: 2;
 
-      &:hover {
-        cursor: pointer;
+      &-img {
+        padding: 1rem 0;
+        width: 2.2rem;
+        height: fit-content;
+        position: relative;
+        z-index: 2;
+
+        &:hover {
+          cursor: pointer;
+        }
       }
     }
   }
 }
+
