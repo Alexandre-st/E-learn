@@ -49,6 +49,7 @@ export type CoursProfesseurProps = {
 
 export type CoursEleveProps = {
   cours: Inputs;
+  userId: number | undefined;
   _onReady: (event: any) => void;
   extractYouTubeID: (url: string) => string | null;
 }

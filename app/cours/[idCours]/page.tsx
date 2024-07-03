@@ -11,7 +11,7 @@ const IdCours = ({ params }: { params: { idCours: number } }) => {
   const supabase = createClient();
   const [cours, setCours] = useState<Inputs | null>(null);
   const [isPublished, setIsPublished] = useState(false);
-  const [user, setUser] = useState<User>();
+  const [user, setUser] = useState<User | undefined>(undefined);
 
   useEffect(() => {
     const getData = async () => {
@@ -55,20 +55,27 @@ const IdCours = ({ params }: { params: { idCours: number } }) => {
     toast.success('Cours publié avec succès !')
   };
 
-  return (
-    <>
-      {user?.id === cours.user && (
-        <CoursProfesseur
-          cours={cours}
-          isPublished={isPublished}
-          publish={publish}
-          _onReady={_onReady}
-          extractYouTubeID={extractYouTubeID}
-        />
-      )}
-      {user?.id !== cours.user && <CoursEleve cours={cours} _onReady={_onReady} extractYouTubeID={extractYouTubeID} />}
-    </>
-  );
+    return (
+        <>
+            {user?.id === cours.user &&
+            <CoursProfesseur
+                cours={cours}
+                isPublished={isPublished}
+                publish={publish}
+                _onReady={_onReady}
+                extractYouTubeID={extractYouTubeID}
+            />
+            }
+            {user?.id !== cours.user &&
+                <CoursEleve
+                    cours={cours}
+                    userId={user?.id}
+                    _onReady={_onReady}
+                    extractYouTubeID={extractYouTubeID}
+                />
+            }
+        </>
+    );
 };
 
 export default IdCours;
