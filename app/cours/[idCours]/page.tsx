@@ -66,7 +66,7 @@ const IdCours = ({ params }: { params: { idCours: number } }) => {
           extractYouTubeID={extractYouTubeID}
         />
       )}
-      {user?.id !== cours.user && <CoursEleve cours={cours} _onReady={_onReady} extractYouTubeID={extractYouTubeID} />}
+      {user?.id !== cours.user && <CoursEleve cours={cours} userId={user?.id} _onReady={_onReady} extractYouTubeID={extractYouTubeID} />}
     </>
   );
 };
