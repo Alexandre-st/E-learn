@@ -1,21 +1,23 @@
 'use client';
-import { useState } from 'react';
+import {useEffect, useState} from 'react';
 import { FormProvider, SubmitHandler, useFieldArray, useForm } from 'react-hook-form';
 import QuizComponent from '../components/QuizComponent';
-import { getUser, goTo } from './action';
-import { NouveauCoursInputs } from '../../types/types';
+import {getCategories, getUser, goTo} from './action';
+import {categorieType, NouveauCoursInputs} from '../../types/types';
 import { createClient } from '../../utils/supabase/client';
 import { toast } from 'sonner';
 import { Metadata } from 'next';
 
 const NouveauCours: React.FC = () => {
   const [imageFile, setImageFile] = useState<File | null>(null);
+  const [categories, setCategories] = useState<categorieType>([]);
   const supabase = createClient();
   const methods = useForm<NouveauCoursInputs>({
     defaultValues: {
       title: '',
       description: '',
       contents: [],
+      categorie: 1,
     },
   });
 
@@ -29,6 +31,14 @@ const NouveauCours: React.FC = () => {
     control,
     name: 'contents',
   });
+
+  useEffect(() => {
+    const requestCategories = async () => {
+      let categorie = await getCategories();
+      setCategories(categorie);
+    }
+    requestCategories();
+  }, [])
 
   const onSubmit: SubmitHandler<NouveauCoursInputs> = async (formData) => {
     const user = await getUser();
@@ -64,6 +74,7 @@ const NouveauCours: React.FC = () => {
             description: formData.description,
             user: user?.id,
             imageUrl: image,
+            categories: formData.categorie,
           },
         ])
         .select()
@@ -100,8 +111,13 @@ const NouveauCours: React.FC = () => {
 
           <div className='inputStyle title_course'>
             <label className='shy-title'>Titre du cours :</label>
-            <input {...register('title', { required: true })} className='input_create_course' />
+            <input {...register('title', {required: true})} className='input_create_course'/>
             {errors.title && <span>Ce champ est requis</span>}
+            <select {...register('categorie', { required: true })}>
+              {categories.map((categorie, index) => (
+                  <option key={index} value={categorie.id}>{categorie.nom}</option>
+              ))}
+            </select>
           </div>
 
           <div className='inputStyle'>

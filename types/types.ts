@@ -61,6 +61,7 @@ export type NouveauCoursInputs = {
   title: string;
   description: string;
   contents: Content[];
+  categorie: number;
 }
 
 export type typeCourses = {
@@ -95,3 +96,10 @@ export type typeUser = {
   password: string;
   avatar: string;
 };
+
+export type categorieType = {
+  id: number;
+  nom: string;
+  image: string;
+  logo: string;
+}[];
