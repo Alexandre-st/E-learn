@@ -20,6 +20,7 @@
 .container {
   width: min(100% - 4rem, 132rem);
   margin-inline: auto;
+  overflow: hidden;
 
   @include mq(tablet) {
     width: min(100% - 6rem, 132rem);

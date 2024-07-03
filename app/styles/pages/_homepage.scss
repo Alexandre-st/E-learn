@@ -15,7 +15,6 @@
   }
 
   &-content {
-
     @include mq(tablet) {
       margin-top: 3rem;
     }
@@ -28,7 +27,7 @@
         box-shadow: var(--box-shadow);
         background: url('../../assets/loupe.svg') no-repeat 4% 50%;
         padding: 1.8rem 1rem 1.8rem 5rem !important;
-        
+
         @include mq(tablet) {
           background-position: 2% 50%;
         }
@@ -84,5 +83,21 @@
 
 .categories {
   padding: 7.4rem 0;
-  background-color: var(--background-content);
+  // background-color: var(--background-content);
 }
+
+.cours {
+  padding: 7.4rem 0;
+  background-color: var(--background-content);
+
+  &-container {
+    // overflow: hidden;
+
+    @include mq(laptop) {
+      align-items: center;
+      gap: 7.5rem;
+      display: flex;
+    }
+  }
+}
+

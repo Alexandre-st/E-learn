@@ -10,7 +10,7 @@ const CoursComponent = (props: Props) => {
   
   return (
     <div className='card'>
-      <h3 className='card-title'>{cour.titre}</h3>
+      <Link href={`/cours-preview/${cour.id}`} className='card-title'>{cour.titre}</Link>
       <p className='card-description'>{cour.description}</p>
 
       <div className='card-link'>
@@ -19,7 +19,7 @@ const CoursComponent = (props: Props) => {
             <p className='card-link-author'>
               {cour.user.firstname} {cour.user.lastname}
             </p>
-            <Link className='card-link-img' href={`/cours/${cour.id}`}>Cours</Link>
+            <Link className='card-link-img' href={`/cours-preview/${cour.id}`}>Cours</Link>
           </>
         )}
       </div>
