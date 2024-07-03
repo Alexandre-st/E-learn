@@ -1,43 +1,25 @@
-'use client';
 import { useEffect, useState } from 'react';
-import { getUser } from '../../nouveau-cours/action';
 import CoursPreviewComponent from '../../components/CoursPreviewComponent';
-import { Inputs, User } from '../../../types/types';
+import {Inputs, userCoursType} from '../../../types/types';
 import { createClient } from '../../../utils/supabase/client';
+import {getUser} from "../../hooks/getUser";
 
-const CoursPreview = ({ params }: { params: { idCours: number } }) => {
+
+const CoursPreview = async ({ params }: { params: { idCours: number } }) => {
   const supabase = createClient();
-  const [cours, setCours] = useState<Inputs | null>(null);
-  const [isPublished, setIsPublished] = useState(false);
-  const [user, setUser] = useState<User>();
 
-  useEffect(() => {
-    const getData = async () => {
-      const { data: cours, error } = await supabase.from('cours').select('*').eq('id', params.idCours).single();
+  const { data: cours, error } = await supabase.from('cours').select('*').eq('id', params.idCours).single();
 
-      // console.log(cours);
+  const user = await getUser();
 
-      if (error) {
-        console.error('Erreur lors de la récupération des cours:', error);
-      } else {
-        setCours(cours);
-        setIsPublished(cours.isPublic);
-        // console.log(cours);
-      }
-
-      const user = await getUser();
-      setUser(user);
-      // console.log(user.id);
-    };
-    
-    getData();
-  }, [supabase, params.idCours]);
-
+  // const userCours: userCoursType;
+  const {data: userCours} = await supabase.from('user_cours').select('*').eq('user', user.id).eq('cours', params.idCours);
+console.log(userCours.length > 0 && userCours[0].termine);
   if (!cours) {
     return <div>Loading...</div>;
   }
 
-  return <>{user?.role === 'professeur' && <CoursPreviewComponent cours={cours} />}</>;
+  return <><CoursPreviewComponent cours={cours} isDone={userCours.length > 0 && userCours[0].termine} isFollowed={userCours.length > 0}/></>;
 };
 
 export default CoursPreview;

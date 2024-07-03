@@ -18,8 +18,8 @@ export async function getUser() {
   return userPublic;
 }
 
-export async function goTo(id: number|string)  {
-  redirect(`/cours/${id}`);
+export async function goTo(id: string)  {
+  redirect(id);
 }
 
 export async function getCategories(){
