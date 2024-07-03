@@ -4,6 +4,7 @@ import { CoursPreviewProps } from '../../types/types';
 import Image from 'next/image';
 import { getUser } from '../hooks/getUser';
 import { createUserCours } from '../cours-preview/[idCours]/action';
+import SupabaseImage from "./SupabaseImage";
 
 const CoursPreviewComponent: React.FC<CoursPreviewProps> = ({ cours }) => {
   const followCourse = async () => {
@@ -31,7 +32,7 @@ const CoursPreviewComponent: React.FC<CoursPreviewProps> = ({ cours }) => {
   return (
     <div className='container'>
       <div>
-        {cours.imageUrl && <Image alt='course image' src={cours.imageUrl} width={300} height={170} />}
+        {cours.imageUrl && <SupabaseImage alt='course image' src={cours.imageUrl} width={300} height={170} location={'cours_images'} />}
         <h1 className='title_course'>{cours.titre}</h1>
         <h2>Description</h2>
         <p>{cours.description}</p>

@@ -104,3 +104,7 @@ export type categorieType = {
   image: string;
   logo: string;
 }[];
+
+export type typeCoursSuivis = {
+  cours: typeCourses
+}
