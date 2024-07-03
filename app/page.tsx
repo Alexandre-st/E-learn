@@ -4,6 +4,9 @@ import CategorieComponent from './components/CategorieComponent';
 import CoursCarousel from './components/CoursCarousel';
 import Image from 'next/image';
 import heroImg from './assets/hero.svg';
+import RealisationsComponent from './components/RealisationsComponent';
+import followImage from './assets/follow.svg';
+import Link from 'next/link';
 
 export const metadata: Metadata = {
   title: 'Home',
@@ -34,10 +37,23 @@ export default function Home() {
         <CategorieComponent />
       </section>
 
-      
-
       <section className='realisations'>
-        <h2>Nos réalisations</h2>
+        <RealisationsComponent />
+      </section>
+
+      <section className='follow'>
+        <div className='container follow-container'>
+          <Image className='follow-image' src={followImage} alt='Follow' />
+          <div className='follow-content'>
+            <h3 className='shy-title'>
+              Rejoins <span className='blue'>gratuitement</span> la plateforme aujourd’hui.
+            </h3>
+            <p className='text'>
+              <i>“Celui qui aime à apprendre est bien près du savoir.”</i> - Confucius
+            </p>
+            <Link className='button' href="/signup">S&apos;inscrire gratuitement</Link>
+          </div>
+        </div>
       </section>
     </main>
   );

@@ -20,6 +20,11 @@
     line-height: 4rem;
     letter-spacing: 1px;
     margin-bottom: 7rem;
+    text-align: center;
+
+    @include mq(laptop) {
+      text-align: start;
+    }
 
     &::first-letter {
       color: var(--blue);

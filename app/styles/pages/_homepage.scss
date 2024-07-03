@@ -1,7 +1,6 @@
 @use '../base/mixins' as *;
 
 .hero {
-  // margin-top: -2rem;
   padding-bottom: 5.4rem;
 
   @include mq(laptop) {
@@ -97,6 +96,57 @@
       align-items: center;
       gap: 7.5rem;
       display: flex;
+    }
+  }
+}
+
+.follow {
+  background-color: var(--background-content);
+  padding: 8rem 0;
+  @include mq(laptop) {
+    margin-top: 6rem;
+
+    &-image {
+      flex: 1;
+    }
+  }
+
+  &-container {
+
+    @include mq(laptop) {
+      display: flex;
+      align-items: center;
+      gap: 2srem;
+    }
+  }
+
+  &-content {
+
+    @include mq(tablet) {
+      margin-top: 4rem;
+    }
+
+    @include mq(laptop) {
+      max-width: 57.3rem;
+    }
+
+    & .text {
+      margin: 3rem 0 6rem;
+
+      i {
+        font-family: 'Space Mono';
+        font-style: italic;
+        font-weight: 400;
+      }
+    }
+
+    .button {
+      width: fit-content;
+      margin: auto;
+
+      @include mq(laptop) {
+        margin: 0;
+      }
     }
   }
 }
