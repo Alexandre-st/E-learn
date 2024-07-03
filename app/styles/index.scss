@@ -12,6 +12,7 @@
 @use './pages/profile';
 @use './pages/formPage';
 @use './pages/coursEleve';
+@use './pages/homepage';
 
 // == COMPONENTS == //
 @use './components/answer';
@@ -19,4 +20,5 @@
 @use './components/form';
 @use './components/coursComponent';
 @use './components/coursPreviewComponent';
+@use './components/courseChild';
 

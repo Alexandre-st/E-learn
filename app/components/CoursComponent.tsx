@@ -11,8 +11,8 @@ const CoursComponent = (props: Props) => {
   
   return (
     <div className='card'>
-      <h3 className='card-title'>{cour.titre}</h3>
-      <p className='card-description'>{cour.description.length >100 ? cour.description.substring(0, 120) + '...' : cour.description}</p>
+      <Link href={`/cours-preview/${cour.id}`} className='card-title'>{cour.titre}</Link>
+      <p className='card-description'>{cour.description}</p>
 
       <div className='card-link'>
         {cour.user && (
