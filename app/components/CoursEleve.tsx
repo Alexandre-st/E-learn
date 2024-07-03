@@ -6,16 +6,14 @@ import { createClient } from '../../utils/supabase/client';
 import { getUser } from '../hooks/getUser';
 import { motion } from 'framer-motion';
 import { background, backgroundContent } from '../../utils/motion/motion';
-// import ActionButtons from './ActionButtons';
 import Image from 'next/image';
 import openIcon from '../assets/hamburger.svg';
 import closeIcon from '../assets/close.svg';
 
-const CoursEleve: React.FC<CoursEleveProps> = ({ cours, _onReady, extractYouTubeID }) => {
+const CoursEleve: React.FC<CoursEleveProps> = ({ cours, userId, _onReady, extractYouTubeID }) => {
   const [content, setContent] = useState<Content>(cours.cours_content[0]);
   const [maxStep, setMaxStep] = useState<number>(0);
   const [currentEtape, setCurrentEtape] = useState<number>(0);
-  const [user, setUser] = useState<User | null>(null);
   const [quizAnswers, setQuizAnswers] = useState<{ [questionIndex: number]: number }>({});
   const [bool, setBool] = useState<boolean>(false);
   const [note, setNote] = useState<number>(0);
@@ -32,7 +30,7 @@ const CoursEleve: React.FC<CoursEleveProps> = ({ cours, _onReady, extractYouTube
       const { data: etape, error } = await supabase
         .from('user_cours')
         .select('*')
-        .eq('user', userInfos.id)
+        .eq('user', userId)
         .eq('cours', cours.id)
         .single();
 
@@ -42,14 +40,13 @@ const CoursEleve: React.FC<CoursEleveProps> = ({ cours, _onReady, extractYouTube
       }
 
       setMaxStep(etape.etape);
-      setUser(userInfos.id);
 
       // Si appel de handleChangeStep, le user est null a ce moment
       if (content.type === 'quiz') {
         const { data } = await supabase
           .from('user_quiz')
           .select('*')
-          .eq('user', userInfos.id)
+          .eq('user', userId)
           .eq('cours', cours.id)
           .eq('etape', etape.etape);
 
@@ -64,8 +61,10 @@ const CoursEleve: React.FC<CoursEleveProps> = ({ cours, _onReady, extractYouTube
       setContent(cours.cours_content[etape.etape]);
       setCurrentEtape(etape.etape);
     };
-    getData();
-  }, [cours.cours_content, cours.id, supabase, content.type]);
+
+    if (userId) getData();
+
+  }, [cours.cours_content, cours.id, supabase, content.type, userId]);
 
   const handleChangeStep = async (index: number) => {
     setContent(cours.cours_content[index]);
@@ -74,7 +73,7 @@ const CoursEleve: React.FC<CoursEleveProps> = ({ cours, _onReady, extractYouTube
       const { data } = await supabase
         .from('user_quiz')
         .select('*')
-        .eq('user', user)
+        .eq('user', userId)
         .eq('cours', cours.id)
         .eq('etape', index);
 
@@ -94,7 +93,7 @@ const CoursEleve: React.FC<CoursEleveProps> = ({ cours, _onReady, extractYouTube
     const { error } = await supabase
       .from('user_cours')
       .update({ etape: currentEtape + 1 })
-      .eq('user', user)
+      .eq('user', userId)
       .eq('cours', cours.id);
 
     if (error) {
@@ -118,7 +117,7 @@ const CoursEleve: React.FC<CoursEleveProps> = ({ cours, _onReady, extractYouTube
 
     const { error } = await supabase
       .from('user_quiz')
-      .insert({ cours: cours.id, user: user, etape: currentEtape, quiz: quizAnswers, note: correctAnswersCount });
+      .insert({ cours: cours.id, user: userId, etape: currentEtape, quiz: quizAnswers, note: correctAnswersCount });
     await handleChangeStep(currentEtape);
   };
 
@@ -153,32 +152,32 @@ const CoursEleve: React.FC<CoursEleveProps> = ({ cours, _onReady, extractYouTube
           (() => {
             const videoId = extractYouTubeID(content.value as string);
             return videoId ? (
-              <>
+              <div className='videoContent'>
                 <YouTube videoId={videoId} onReady={_onReady} />
                 <button className='button' onClick={handleNextStep}>
                   Valider l&apos;étape
                 </button>
-              </>
+              </div>
             ) : (
-              <>
+              <div className='videoContent'>
                 <iframe src={content.value as string} title='Video Content' />
-                <button className='button' onClick={handleNextStep}>
+                <button className='button videoButton' onClick={handleNextStep}>
                   Valider l&apos;étape
                 </button>
-              </>
+              </div>
             );
           })()}
         {content.type === 'quiz' && (
           <div>
             <h2 className='lil-title'>{content.title}</h2>
             {(content.value as Quiz).questions.map((question, qIndex) => (
-              <div key={qIndex}>
+              <div className='quiz-content' key={qIndex}>
                 <h3 className='shy-title'>{question.question}</h3>
-                <ul>
+                <ul className='quiz-content-element'>
                   {question.answers.map((answer, aIndex) => (
                     <li key={aIndex}>
                       <label className={'label_answer'}>
-                        Réponse {aIndex + 1}: {answer}
+                        {answer}
                         <input
                           type='checkbox'
                           name={`question-${qIndex}`}
@@ -197,7 +196,11 @@ const CoursEleve: React.FC<CoursEleveProps> = ({ cours, _onReady, extractYouTube
                 </ul>
               </div>
             ))}
-            {!bool && <button onClick={handleQuiz}>Valider le quiz</button>}
+            {!bool && (
+              <button className='button quizButton' onClick={handleQuiz}>
+                Valider le quiz
+              </button>
+            )}
             {bool && (
               <>
                 <label>Votre note : {note}</label>
