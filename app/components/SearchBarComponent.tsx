@@ -2,11 +2,14 @@
 
 import { ChangeEvent, useEffect, useState } from 'react';
 import { createClient } from '../../utils/supabase/client';
+import Link from 'next/link';
 
 const SearchBarComponent = () => {
   const [query, setQuery] = useState('');
   const [results, setResults] = useState<string[]>([]);
   const [noResults, setNoResults] = useState<boolean>(false);
+
+  console.log(results);
 
   useEffect(() => {
     const handleSearch = async () => {
@@ -17,12 +20,8 @@ const SearchBarComponent = () => {
         return;
       }
 
-      const { data, error } = await supabase
-        .from('cours')
-        .select('*')
-        .ilike('titre', `%${query}%`)
-        .range(0, 3); // Limite à 4 résultats
-
+      const { data, error } = await supabase.from('cours').select('*').ilike('titre', `%${query}%`).range(0, 3); // Limite à 4 résultats
+      
       if (error) {
         console.error(error);
       } else {
@@ -39,20 +38,29 @@ const SearchBarComponent = () => {
   }, [query]);
 
   return (
-    <div className='searchBar'>
+    <div className='searchBar form'>
       <div className='inputStyle'>
-        <input type='text' value={query} onChange={(e) => setQuery(e.target.value)} placeholder='Search courses...' />
+        <input
+          type='text'
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          placeholder='Rechercher votre cours...'
+        />
       </div>
-      <button className='button' type='submit'>
-        Search
-      </button>
-      {/* </form> */}
-      <ul>
-        {results.map((result) => (
-          <li key={result.id}>{result.titre}</li>
-        ))}
-      </ul>
-      {noResults && <p>Pas de résultats</p>}
+      {results.length > 0 && (
+        <>
+          <ul className='searchBar-results'>
+            {results.map((result) => (
+              <li key={result.id}>
+                <Link href={`cours-preview/${result.id}`}>
+                  {result.titre}
+                </Link>
+              </li>
+            ))}
+          </ul>
+          {noResults && <p>Pas de résultats</p>}
+        </>
+      )}
     </div>
   );
 };

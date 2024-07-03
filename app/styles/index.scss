@@ -12,11 +12,12 @@
 @use './pages/profile';
 @use './pages/formPage';
 @use './pages/coursEleve';
+@use './pages/homepage';
 
 // == COMPONENTS == //
 @use './components/answer';
 @use './components/menu';
 @use './components/form';
 @use './components/coursComponent';
-@use './components/searchBarComponent';
+@use './components/courseChild';
 

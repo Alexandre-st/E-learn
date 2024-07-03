@@ -25,7 +25,7 @@
     & .navbar {
       display: none;
 
-      @include mq(tablet) {
+      @include mq(laptop) {
         display: flex;
         align-items: center;
         gap: 4.8rem;
@@ -48,7 +48,7 @@
   &-user {
     display: none;
 
-    @include mq(tablet) {
+    @include mq(laptop) {
       display: flex;
       gap: 2.2rem;
       align-items: center;
@@ -109,7 +109,7 @@
     gap: 2.2rem;
 
     & .theme {
-      @include mq(tablet) {
+      @include mq(laptop) {
         display: none;
       }
     }
@@ -117,7 +117,7 @@
     &-mobile {
       display: none;
     }
-    @include mq(tablet) {
+    @include mq(laptop) {
       display: none;
     }
   }
