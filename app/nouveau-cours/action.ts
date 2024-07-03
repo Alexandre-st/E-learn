@@ -3,9 +3,9 @@
 import { createClient } from '../../utils/supabase/server';
 import {redirect} from "next/navigation";
 
-export async function getUser() {
-  const supabase = createClient();
+const supabase = createClient();
 
+export async function getUser() {
   let {data: { user }} = await supabase.auth.getUser();
 
   let { data: userPublic, error } = await supabase
@@ -20,5 +20,13 @@ export async function getUser() {
 
 export async function goTo(id: number|string)  {
   redirect(`/cours/${id}`);
+}
+
+export async function getCategories(){
+  let { data: categories, error } = await supabase
+      .from('categories')
+      .select('*')
+
+  return categories;
 }
 
