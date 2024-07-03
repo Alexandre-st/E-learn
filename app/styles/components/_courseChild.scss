@@ -1,23 +1,10 @@
 @use '../base/mixins' as *;
 
 .embla {
-  // max-width: 70rem;
-  // margin: auto;
-  // --slide-height: 19rem;
-  // --slide-spacing: 1rem;
-  // --slide-size: 100%;
-  // --slide-spacing-sm: 1.6rem;
-  // --slide-size-sm: 50%;
-  // --slide-spacing-lg: 2rem;
-  // --slide-size-lg: calc(100% / 3);
   margin-top: 3rem;
   overflow: hidden;
 }
-// .embla__viewport {
-//   overflow: hidden;
-// }
 .embla-flex {
-  // backface-visibility: hidden;
   display: flex;
   touch-action: pan-y pinch-zoom;
   gap: 2rem;

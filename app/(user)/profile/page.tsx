@@ -2,14 +2,14 @@ import { differenceInDays } from 'date-fns';
 import { Metadata } from 'next';
 import Image from 'next/image';
 import { redirect } from 'next/navigation';
-import { typeCourses } from '../../types/types';
-import { createClient } from '../../utils/supabase/server';
-import profilePic from '../assets/Profile_pic.svg';
-import CoursComponent from '../components/CoursComponent';
-import UpdateProfile from '../components/UpdateProfile';
-import { getUser } from '../hooks/getUser';
-import UpdateAvatar from '../components/UpdateAvatar';
-import SupabaseImage from '../components/SupabaseImage';
+import { typeCourses } from '../../../types/types';
+import profilePic from '../../assets/Profile_pic.svg';
+import { createClient } from '../../../utils/supabase/server';
+import UpdateProfile from '../../components/UpdateProfile';
+import SupabaseImage from '../../components/SupabaseImage';
+import UpdateAvatar from '../../components/UpdateAvatar';
+import CoursComponent from '../../components/CoursComponent';
+import { getUser } from '../../hooks/getUser';
 
 export const metadata: Metadata = {
   title: 'Profil',

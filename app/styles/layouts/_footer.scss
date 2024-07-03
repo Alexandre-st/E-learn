@@ -1,3 +1,72 @@
-footer {
-  margin-top: 5rem;
+@use '../base/mixins' as *;
+
+.footer {
+  margin-top: 12.6rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  @include mq(laptop) {
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: space-between;
+  }
+
+  &-logo {
+    font-family: 'PT Serif', serif;
+    font-size: 4.8rem;
+    font-style: italic;
+    font-weight: 700;
+    line-height: 4rem;
+    letter-spacing: 1px;
+    margin-bottom: 7rem;
+
+    &::first-letter {
+      color: var(--blue);
+    }
+  }
+
+  h3 {
+    font-size: 2rem;
+  }
+
+  &-social {
+    display: flex;
+    gap: 2.2rem;
+    margin-bottom: 4rem;
+  }
+
+  &-links {
+    margin: 3.2rem 0 6rem;
+    text-align: center;
+    font-size: 1.6rem;
+    line-height: 2.4rem;
+    color: var(--text-color);
+
+    @include mq(laptop) {
+      text-align: start;
+    }
+
+    & li {
+      &:not(:last-child) {
+        margin-bottom: 1.6rem;
+      }
+    }
+  }
+
+  & .header-user-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3.2rem;
+    margin-bottom: 4rem;
+
+    & .logout, .subscribe {
+      color: #697c9a;
+      font-size: 1.6rem;
+      font-weight: 500;
+      line-height: 2.4rem;
+    }
+  }
 }
+
