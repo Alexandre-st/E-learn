@@ -1,36 +1,39 @@
-import { differenceInDays } from 'date-fns';
-import { Metadata } from 'next';
+import {differenceInDays} from 'date-fns';
+import {Metadata} from 'next';
 import Image from 'next/image';
-import { redirect } from 'next/navigation';
-import { typeCourses } from '../../types/types';
-import { createClient } from '../../utils/supabase/server';
+import {redirect} from 'next/navigation';
+import {typeCourses, typeCoursSuivis} from '../../types/types';
+import {createClient} from '../../utils/supabase/server';
 import profilePic from '../assets/Profile_pic.svg';
 import CoursComponent from '../components/CoursComponent';
 import UpdateProfile from '../components/UpdateProfile';
-import { getUser } from '../hooks/getUser';
+import {getUser} from '../hooks/getUser';
 import UpdateAvatar from '../components/UpdateAvatar';
 import SupabaseImage from '../components/SupabaseImage';
 
 export const metadata: Metadata = {
-  title: 'Profil',
+    title: 'Profil',
 };
 
 const Profile: React.FC = async () => {
-  const user = await getUser();
-  const supabase = createClient();
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-  const { data: cours } = await supabase
-    .from('cours')
-    .select('*, user (id, firstname, lastname, role, avatar)')
-    .eq('user', user.id);
+    const user = await getUser();
+    const supabase = createClient();
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
+    const {data: cours} = await supabase
+        .from('cours')
+        .select('*, user (id, firstname, lastname, role, avatar)')
+        .eq('user', user.id);
 
-  if (!user) {
-    redirect('/login');
-  }
+    const {data: coursSuivis} = await supabase.from('user_cours').select('cours (*)').eq('user', user.id);
 
-  // To manage the date for the user inscription
-  const currentDate = new Date();
-  const date = differenceInDays(currentDate, user.created_at);
+    if (!user) {
+        redirect('/login');
+    }
+
+    // To manage the date for the user inscription
+    const currentDate = new Date();
+    const date = differenceInDays(currentDate, user.created_at);
+    console.log(cours);
 
   return (
     <section className='profile'>
@@ -57,20 +60,32 @@ const Profile: React.FC = async () => {
           </div>
         </div>
         {/* <p>{user.email}</p> */}
-        <div className='profile-course'>
-          {user.role === 'professeur' && (
-            <div className='profile-course-content'>
+          {coursSuivis?.length > 0 &&
+            <div className='profile-course'>
               <h2 className='mid-title'>
-                Mes <span className='blue'>Cours</span>
+                Mes <span className='blue'>Cours</span> Suivis
               </h2>
               <div className='card-container'>
-                {cours?.map((cour: typeCourses) => (
-                  <CoursComponent cour={cour} key={cour.id} />
+                {coursSuivis?.map((courSuivi: typeCoursSuivis) => (
+                    <CoursComponent cour={courSuivi.cours} key={courSuivi.cours.id} isFollowed={true}/>
                 ))}
               </div>
             </div>
+          }
+          {user.role === 'professeur' && cours?.length > 0 && (
+              <div className='profile-course'>
+                  <div className='profile-course-content'>
+                      <h2 className='mid-title'>
+                          Mes <span className='blue'>Cours</span>
+                      </h2>
+                      <div className='card-container'>
+                          {cours?.map((cour: typeCourses) => (
+                              <CoursComponent cour={cour} key={cour.id} isFollowed={true}/>
+                          ))}
+                      </div>
+                  </div>
+              </div>
           )}
-        </div>
       </div>
     </section>
   );

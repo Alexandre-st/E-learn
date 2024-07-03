@@ -56,6 +56,8 @@ export type CoursEleveProps = {
 
 export type CoursPreviewProps = {
   cours: Inputs;
+  isDone: boolean;
+  isFollowed: boolean;
 }
 
 export type NouveauCoursInputs = {
@@ -107,4 +109,13 @@ export type categorieType = {
 
 export type typeCoursSuivis = {
   cours: typeCourses
+}
+
+export type userCoursType = {
+  id: number;
+  cours: number;
+  user: number;
+  note: nummber | null;
+  etape: number;
+  termine: boolean;
 }

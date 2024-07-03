@@ -86,7 +86,7 @@ const NouveauCours: React.FC = () => {
         return;
       }
 
-      goTo(data.id);
+      goTo(`cours/${data.id}`);
       toast("Les données ont été insérées avec succès !")
     } catch (error) {
       // console.error('API error:', error);

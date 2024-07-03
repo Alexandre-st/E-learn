@@ -5,8 +5,9 @@ import Image from 'next/image';
 import { getUser } from '../hooks/getUser';
 import { createUserCours } from '../cours-preview/[idCours]/action';
 import SupabaseImage from "./SupabaseImage";
+import {goTo} from "../nouveau-cours/action";
 
-const CoursPreviewComponent: React.FC<CoursPreviewProps> = ({ cours }) => {
+const CoursPreviewComponent: React.FC<CoursPreviewProps> = ({ cours, isDone, isFollowed }) => {
   const followCourse = async () => {
     const user = await getUser();
     const error = await createUserCours(user.id, cours.id);
@@ -29,6 +30,10 @@ const CoursPreviewComponent: React.FC<CoursPreviewProps> = ({ cours }) => {
     }
   });
 
+  const handleGo = () => {
+    goTo(`/cours/${cours.id}`)
+  }
+
   return (
     <div className='container'>
       <div>
@@ -38,8 +43,20 @@ const CoursPreviewComponent: React.FC<CoursPreviewProps> = ({ cours }) => {
         <p>{cours.description}</p>
       </div>
       <div>
-        <h2>S&apos;abonner au cours</h2>
-        <input type='submit' value="S'abonner" className='submit_create_course' onClick={followCourse} />
+        {isDone &&
+            <p className='completed-course'>Vous avez terminé ce cours !</p>
+        }
+        {isFollowed &&
+            <>
+              <input type='submit' value="Aller au cours" className='submit_create_course' onClick={handleGo} />
+            </>
+        }
+        {!isFollowed &&
+            <>
+          <h2>S&apos;abonner au cours</h2>
+          <input type='submit' value="S'abonner" className='submit_create_course' onClick={followCourse} />
+          </>
+      }
         <h3>Ce cours contient :</h3>
         {texts > 0 && (
           <p>
