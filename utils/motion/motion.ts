@@ -20,6 +20,27 @@ const background = {
   },
 };
 
+const backgroundMenu = {
+  initial: {
+    x: 800,
+    opacity: 1,
+  },
+  open: {
+    x: 0,
+    opacity: 1,
+    transition: {
+      duration: 0.2,
+    },
+  },
+  closed: {
+    x: 800,
+    opacity: 1,
+    transition: {
+      duration: 0.3,
+    },
+  },
+};
+
 const backgroundContent = {
   initial: {
     // x: 800,
@@ -42,4 +63,4 @@ const backgroundContent = {
   },
 };
 
-export { background, backgroundContent };
+export { background, backgroundContent, backgroundMenu };

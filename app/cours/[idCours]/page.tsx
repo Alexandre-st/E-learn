@@ -17,19 +17,15 @@ const IdCours = ({ params }: { params: { idCours: number } }) => {
     const getData = async () => {
       const { data: cours, error } = await supabase.from('cours').select('*').eq('id', params.idCours).single();
 
-      // console.log(cours);
-
       if (error) {
         console.error('Erreur lors de la récupération des cours:', error);
       } else {
         setCours(cours);
         setIsPublished(cours.isPublic);
-        // console.log(cours);
       }
 
       const user = await getUser();
       setUser(user);
-      // console.log(user.id);
     };
     getData();
   }, [supabase, params.idCours]);
@@ -52,7 +48,7 @@ const IdCours = ({ params }: { params: { idCours: number } }) => {
     const {} = await supabase.from('cours').update({ isPublic: true }).eq('id', params.idCours);
 
     setIsPublished(true);
-    toast.success('Cours publié avec succès !')
+    toast.success('Cours publié avec succès !');
   };
 
   return (
@@ -66,7 +62,9 @@ const IdCours = ({ params }: { params: { idCours: number } }) => {
           extractYouTubeID={extractYouTubeID}
         />
       )}
-      {user?.id !== cours.user && <CoursEleve cours={cours} userId={user?.id} _onReady={_onReady} extractYouTubeID={extractYouTubeID} />}
+      {user?.id !== cours.user && (
+        <CoursEleve cours={cours} userId={user?.id} _onReady={_onReady} extractYouTubeID={extractYouTubeID} />
+      )}
     </>
   );
 };

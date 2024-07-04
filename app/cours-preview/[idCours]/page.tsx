@@ -19,34 +19,28 @@ const CoursPreview = async ({ params }: { params: { idCours: number } }) => {
       .eq('user', user.id)
       .eq('cours', params.idCours);
 
-      if (userCours) {
-        userCourse = userCours;
-      }
+    if (userCours) {
+      userCourse = userCours;
+    }
   } else {
     userCourse = [];
   }
-  // const userCours: userCoursType;
-  // console.log(userCours.length > 0 && userCours[0].termine);
+
   if (!cours) {
     return <div>Loading...</div>;
   }
 
   return (
     <>
-    {user ? (
-      <CoursPreviewComponent
-        cours={cours}
-        isDone={userCourse && userCourse[0]?.termine}
-        isFollowed={userCourse.length > 0}
-      />
-      
-    ) : (
-      <CoursPreviewComponent
-        cours={cours}
-        isDone={false}
-        isFollowed={false}
-      />
-    )}
+      {user ? (
+        <CoursPreviewComponent
+          cours={cours}
+          isDone={userCourse && userCourse[0]?.termine}
+          isFollowed={userCourse.length > 0}
+        />
+      ) : (
+        <CoursPreviewComponent cours={cours} isDone={false} isFollowed={false} />
+      )}
     </>
   );
 };

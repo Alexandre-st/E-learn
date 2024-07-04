@@ -37,9 +37,9 @@ export default function Home() {
         <CategorieComponent />
       </section>
 
-      <section className='realisations'>
+      {/* <section className='realisations'>
         <RealisationsComponent />
-      </section>
+      </section> */}
 
       <section className='follow'>
         <div className='container follow-container'>

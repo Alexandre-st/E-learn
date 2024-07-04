@@ -16,6 +16,8 @@
       font-weight: 700;
       line-height: 35px;
       letter-spacing: 0.1px;
+      position: relative;
+      z-index: 4;
 
       &::first-letter {
         color: var(--blue);
@@ -102,28 +104,13 @@
     }
   }
 
-  // Menu for the mobile
-  &-menu {
-    display: flex;
-    align-items: center;
-    gap: 2.2rem;
-
-    & .theme {
-      @include mq(laptop) {
-        display: none;
-      }
-    }
-
-    &-mobile {
-      display: none;
-    }
-    @include mq(laptop) {
-      display: none;
-    }
-  }
+  
 
   .theme {
     transition: all 0.3s ease-in-out;
+    position: relative;
+    z-index: 4;
+
     &:hover {
       cursor: pointer;
       filter: var(--hover-img);

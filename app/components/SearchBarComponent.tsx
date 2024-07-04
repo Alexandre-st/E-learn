@@ -9,8 +9,6 @@ const SearchBarComponent = () => {
   const [results, setResults] = useState<string[]>([]);
   const [noResults, setNoResults] = useState<boolean>(false);
 
-  console.log(results);
-
   useEffect(() => {
     const handleSearch = async () => {
       const supabase = createClient();
