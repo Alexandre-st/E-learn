@@ -3,24 +3,38 @@
 .liveCourse {
   position: relative;
 
+  @include mq(tablet) {
+    padding-right: 4rem;
+  }
+
   .buttonFloat {
     margin: auto;
 
     @include mq(tablet) {
       position: absolute;
-      right: 0;
+      right: 4rem;
     }
   }
 
   &-header {
-    margin-top: 4rem;
+    margin-top: 6rem;
 
     & .lil-title {
       text-align: center;
     }
 
+    .text {
+      margin: 4rem 0;
+    }
+
     & .quiz-content {
       margin-top: 4rem;
+
+
+      .label_answer-response {
+        margin-top: 3rem !important;
+        font-size: 1.6rem;
+      }
 
       &-element {
         margin-top: 2rem;
@@ -103,8 +117,18 @@
     padding: 0 2rem;
     right: 0;
 
+    &-img {
+      width: fit-content;
+      margin-bottom: 2rem;
+    }
+
+    div {
+      margin-bottom: 2rem;
+      font-size: 1.6rem;
+    }
+
     @include mq(tablet) {
-      border-left: 1px solid #000;
+      // border-left: 1px solid #000;
       top: 10.5rem;
       bottom: 0;
       padding: 5rem 2rem 2rem 2rem;
@@ -125,3 +149,10 @@
   }
 }
 
+.validate {
+  margin-top: 3rem;
+
+  h4 {
+    margin-bottom: 2rem;
+  }
+}
