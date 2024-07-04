@@ -1,7 +1,7 @@
 const background = {
   initial: {
     // x: 800,
-    x: 140,
+    x: 240,
     opacity: 1,
   },
   open: {
@@ -12,7 +12,7 @@ const background = {
     },
   },
   closed: {
-    x: 140,
+    x: 240,
     opacity: 1,
     transition: {
       duration: 0.3,

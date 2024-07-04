@@ -4,8 +4,9 @@ import { CoursPreviewProps } from '../../types/types';
 import Image from 'next/image';
 import { getUser } from '../hooks/getUser';
 import { createUserCours } from '../cours-preview/[idCours]/action';
-import SupabaseImage from "./SupabaseImage";
-import {goTo} from "../nouveau-cours/action";
+import SupabaseImage from './SupabaseImage';
+import { goTo } from '../nouveau-cours/action';
+// import { createUserCours } from '../(user)/cours-preview/[idCours]/action';
 
 const CoursPreviewComponent: React.FC<CoursPreviewProps> = ({ cours, isDone, isFollowed }) => {
   const followCourse = async () => {
@@ -31,48 +32,57 @@ const CoursPreviewComponent: React.FC<CoursPreviewProps> = ({ cours, isDone, isF
   });
 
   const handleGo = () => {
-    goTo(`/cours/${cours.id}`)
-  }
+    goTo(`/cours/${cours.id}`);
+  };
 
   return (
-    <div className='container'>
+    <div className='container coursePreview'>
       <div>
-        {cours.imageUrl && <SupabaseImage alt='course image' src={cours.imageUrl} width={300} height={170} location={'cours_images'} />}
-        <h1 className='title_course'>{cours.titre}</h1>
-        <h2>Description</h2>
-        <p>{cours.description}</p>
+        {cours.imageUrl && (
+          <SupabaseImage alt={cours.titre} src={cours.imageUrl} width={300} height={170} location={'cours_images'} />
+        )}
+        <h1 className='shy-title'>{cours.titre}</h1>
       </div>
-      <div>
-        {isDone &&
-            <p className='completed-course'>Vous avez terminé ce cours !</p>
-        }
-        {isFollowed &&
+      <div className='coursePreview-content'>
+        <p className='text'>{cours.description}</p>
+
+        <aside className='coursePreview-aside'>
+          {isDone && <p className='completed-course text'>Vous avez terminé ce cours !</p>}
+          {isFollowed && (
             <>
-              <input type='submit' value="Aller au cours" className='submit_create_course' onClick={handleGo} />
+              <h3 className='submit_create_course'>Accéder au cours</h3>
+              <button className='button' onClick={handleGo}>
+                Aller au cours
+              </button>
             </>
-        }
-        {!isFollowed &&
+          )}
+          {!isFollowed && (
             <>
-          <h2>S&apos;abonner au cours</h2>
-          <input type='submit' value="S'abonner" className='submit_create_course' onClick={followCourse} />
-          </>
-      }
-        <h3>Ce cours contient :</h3>
-        {texts > 0 && (
-          <p>
-            <label>{texts} texts</label>
-          </p>
-        )}
-        {videos > 0 && (
-          <p>
-            <label>{videos} vidéos</label>
-          </p>
-        )}
-        {quizs > 0 && (
-          <p>
-            <label>{quizs} quizs</label>
-          </p>
-        )}
+              <h3 className='submit_create_course'>S&apos;abonner au cours</h3>
+              <button className='button' onClick={followCourse}>
+                S&apos;abonner
+              </button>
+            </>
+          )}
+          <h3 className='coursePreview-aside-element'>Ce cours contient :</h3>
+          <div className='coursePreview-aside-element-p'>
+            {texts > 0 && (
+              <p className='text'>
+                {texts} {texts > 1 ? 'textes' : 'texte'}
+              </p>
+            )}
+            {videos > 0 && (
+              <p className='text'>
+                {videos} {videos > 1 ? 'videos' : 'video'}
+              </p>
+            )}
+            {quizs > 0 && (
+              <p className='text'>
+                {quizs} {quizs > 1 ? 'quizs' : 'quiz'}
+              </p>
+            )}
+          </div>
+        </aside>
       </div>
     </div>
   );

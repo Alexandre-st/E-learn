@@ -74,6 +74,7 @@ export type typeCourses = {
   moyenne: number;
   titre: string;
   description: string;
+  imageUrl: string;
   isPublic: boolean;
   user: {
     id: number;
@@ -115,7 +116,7 @@ export type userCoursType = {
   id: number;
   cours: number;
   user: number;
-  note: nummber | null;
+  note: number | null;
   etape: number;
   termine: boolean;
 }

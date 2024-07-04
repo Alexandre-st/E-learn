@@ -4,11 +4,13 @@ import { EmblaOptionsType } from 'embla-carousel';
 import { DotButton, useDotButton } from './embla/EmblaCarouselDotButton';
 import { PrevButton, NextButton, usePrevNextButtons } from './embla/EmblaCarouselArrowButtons';
 import SupabaseImage from './SupabaseImage';
-import { Inputs } from '../../types/types';
+import { typeCourses } from '../../types/types';
 import Link from 'next/link';
+import arrowIcon from '../assets/arrow.svg';
+import Image from 'next/image';
 
 type Props = {
-  cours: Inputs[];
+  cours: typeCourses[];
 };
 
 const CourseChild = (props: Props) => {
@@ -38,8 +40,8 @@ const CourseChild = (props: Props) => {
                   <p className='card-link-author'>
                     {cour.user.firstname} {cour.user.lastname}
                   </p>
-                  <Link className='card-link-img' href={`/cours/${cour.id}`}>
-                    Cours
+                  <Link className='card-link-img' href={`/cours-preview/${cour.id}`}>
+                    <Image src={arrowIcon} alt={`Lien vers ${cour.titre}`} />
                   </Link>
                 </>
               )}

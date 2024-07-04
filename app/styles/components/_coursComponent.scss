@@ -58,9 +58,19 @@
 
     &-img {
       border-radius: 8px;
-      background: #fff;
+      background: var(--blue);
       box-shadow: -4px 4px 20px 0px rgba(70, 96, 187, 0.2);
       padding: 1rem;
+      color: var(--white);
+
+      &:hover {
+        background-color: var(--hover-blue);
+      }
+
+      img {
+        width: 24px;
+        height: 24px !important;
+      }
     }
   }
 }
