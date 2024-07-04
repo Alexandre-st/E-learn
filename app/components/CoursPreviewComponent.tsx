@@ -6,6 +6,7 @@ import { getUser } from '../hooks/getUser';
 import { createUserCours } from '../cours-preview/[idCours]/action';
 import SupabaseImage from './SupabaseImage';
 import { goTo } from '../nouveau-cours/action';
+// import { createUserCours } from '../(user)/cours-preview/[idCours]/action';
 
 const CoursPreviewComponent: React.FC<CoursPreviewProps> = ({ cours, isDone, isFollowed }) => {
   const followCourse = async () => {

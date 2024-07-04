@@ -7,7 +7,7 @@ type Props = {
 };
 
 const CoursComponent = async (props: Props) => {
-  const { cour } = props;
+  const { cour } = props;  
   
   return (
     <div className='card'>
@@ -25,12 +25,12 @@ const CoursComponent = async (props: Props) => {
             </p>
             {props.isFollowed && (
               <Link className='card-link-img' href={`/cours/${cour.id}`}>
-                Cours
+                Continuer le cours
               </Link>
             )}
             {!props.isFollowed && (
               <Link className='card-link-img' href={`/cours-preview/${cour.id}`}>
-                Cours
+                Voir le cours
               </Link>
             )}
           </>

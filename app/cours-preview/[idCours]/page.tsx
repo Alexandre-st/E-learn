@@ -1,9 +1,7 @@
-import { useEffect, useState } from 'react';
-import CoursPreviewComponent from '../../components/CoursPreviewComponent';
-import {Inputs, userCoursType} from '../../../types/types';
+// import { useEffect, useState } from 'react';
 import { createClient } from '../../../utils/supabase/client';
-import {getUser} from "../../hooks/getUser";
-
+import { getUser } from '../../hooks/getUser';
+import CoursPreviewComponent from '../../components/CoursPreviewComponent';
 
 const CoursPreview = async ({ params }: { params: { idCours: number } }) => {
   const supabase = createClient();
@@ -12,14 +10,45 @@ const CoursPreview = async ({ params }: { params: { idCours: number } }) => {
 
   const user = await getUser();
 
+  let userCourse: [];
+
+  if (user) {
+    const { data: userCours } = await supabase
+      .from('user_cours')
+      .select('*')
+      .eq('user', user.id)
+      .eq('cours', params.idCours);
+
+      if (userCours) {
+        userCourse = userCours;
+      }
+  } else {
+    userCourse = [];
+  }
   // const userCours: userCoursType;
-  const {data: userCours} = await supabase.from('user_cours').select('*').eq('user', user.id).eq('cours', params.idCours);
-console.log(userCours.length > 0 && userCours[0].termine);
+  // console.log(userCours.length > 0 && userCours[0].termine);
   if (!cours) {
     return <div>Loading...</div>;
   }
 
-  return <><CoursPreviewComponent cours={cours} isDone={userCours.length > 0 && userCours[0].termine} isFollowed={userCours.length > 0}/></>;
+  return (
+    <>
+    {user ? (
+      <CoursPreviewComponent
+        cours={cours}
+        isDone={userCourse && userCourse[0]?.termine}
+        isFollowed={userCourse.length > 0}
+      />
+      
+    ) : (
+      <CoursPreviewComponent
+        cours={cours}
+        isDone={false}
+        isFollowed={false}
+      />
+    )}
+    </>
+  );
 };
 
 export default CoursPreview;

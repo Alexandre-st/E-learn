@@ -1,3 +1,5 @@
+
+
 import { Metadata } from 'next';
 import { typeCourses, typeCoursSuivis } from '../../types/types';
 import { createClient } from '../../utils/supabase/client';
@@ -16,29 +18,49 @@ const Cours = async () => {
     .select('*, user (id, firstname, lastname, role)')
     .eq('isPublic', true);
 
+  let user = await getUser();
 
+  let coursSuivis;
 
-  // console.log(coursFollowed, coursNotFollowed);
+  if (user) {
+    const { data: course } = await supabase.from('user_cours').select('cours (*)').eq('user', user.id);
+
+    if (course) {
+      coursSuivis = course;
+    } else {
+      coursSuivis = [];
+    }
+  }
+  
+
+  // // Extraire les identifiants des cours suivis
+  const coursSuivisIds = coursSuivis?.map((courSuivi) => courSuivi.cours.id);
+
+  // // Filtrer les cours pour ne garder que ceux suivis par l'utilisateur
+  const coursFollowed = cours?.filter((cour) => coursSuivisIds?.includes(cour.id));
+  const coursNotFollowed = cours?.filter((cour) => !coursSuivisIds?.includes(cour.id));
+  console.log(coursFollowed, coursNotFollowed);
+
   return (
     <section className='container'>
       <h1 className='mid-title'>Liste des cours</h1>
       <div className='card-container'>
-        {cours?.map((cour) => (
-          <CoursComponent cour={cour} key={cour.id} />
-        ))}
-
-        {/* {user ? (
+        {user ? (
           <>
             {cours?.map((cour) => (
               <>
-                {coursFollowed.includes(cour) && <CoursComponent cour={cour} key={cour.id} isFollowed={true} />}
-                {coursNotFollowed.includes(cour) && <CoursComponent cour={cour} key={cour.id} isFollowed={false} />}
+                {coursFollowed?.includes(cour) && <CoursComponent cour={cour} key={cour.id} isFollowed={true} />}
+                {coursNotFollowed?.includes(cour) && <CoursComponent cour={cour} key={cour.id} isFollowed={false} />}
               </>
             ))}
           </>
         ) : (
-          <CoursComponent cour={cours} key={cours.id} isFollowed={false} />
-        )} */}
+          <>
+            {cours?.map((cour) => (
+              <CoursComponent cour={cour} key={cour.id} isFollowed={false} />
+            ))}
+          </>
+        )}
       </div>
     </section>
   );
