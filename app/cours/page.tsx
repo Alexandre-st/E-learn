@@ -1,5 +1,3 @@
-
-
 import { Metadata } from 'next';
 import { typeCourses, typeCoursSuivis } from '../../types/types';
 import { createClient } from '../../utils/supabase/client';
@@ -31,15 +29,13 @@ const Cours = async () => {
       coursSuivis = [];
     }
   }
-  
 
-  // // Extraire les identifiants des cours suivis
+  // Extraire les identifiants des cours suivis
   const coursSuivisIds = coursSuivis?.map((courSuivi) => courSuivi.cours.id);
 
-  // // Filtrer les cours pour ne garder que ceux suivis par l'utilisateur
+  // Filtrer les cours pour ne garder que ceux suivis par l'utilisateur
   const coursFollowed = cours?.filter((cour) => coursSuivisIds?.includes(cour.id));
   const coursNotFollowed = cours?.filter((cour) => !coursSuivisIds?.includes(cour.id));
-  console.log(coursFollowed, coursNotFollowed);
 
   return (
     <section className='container'>

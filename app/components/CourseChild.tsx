@@ -20,8 +20,6 @@ const CourseChild = (props: Props) => {
   const { selectedIndex, scrollSnaps, onDotButtonClick } = useDotButton(emblaApi);
   const { prevBtnDisabled, nextBtnDisabled, onPrevButtonClick, onNextButtonClick } = usePrevNextButtons(emblaApi);
 
-  console.log(cours);
-
   return (
     <div className='embla' ref={emblaRef}>
       <div className='embla__container embla-flex'>
