@@ -1,0 +1,56 @@
+@use '../base/mixins' as *;
+
+// Menu for the mobile
+.header-menu {
+  display: flex;
+  align-items: center;
+  gap: 2.2rem;
+
+  & .theme {
+    @include mq(laptop) {
+      display: none;
+    }
+  }
+
+  &-mobile {
+    position: relative;
+    z-index: 4;
+    right: 4rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    text-align: end;
+    top: 16rem;
+    font-size: 2.2rem;
+    font-weight: 500;
+    line-height: 2.4rem;
+
+    ul {
+      display: flex;
+      flex-direction: column;
+      gap: 6rem;
+      color: var(--text-color);
+    }
+  }
+
+  @include mq(laptop) {
+    display: none;
+  }
+
+  &-image {
+    position: relative;
+    z-index: 4;
+  }
+  &-background {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: var(--background);
+    height: 100svh;
+    width: 100%;
+    z-index: 3;
+  }
+}
+

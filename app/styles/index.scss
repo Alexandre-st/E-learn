@@ -1,0 +1,25 @@
+// == BASE == //
+@use './base/reset';
+@use './base/variables';
+@use './base/base';
+
+// == LAYOUTS == //
+@use './layouts/header';
+@use './layouts/footer';
+
+// == PAGES == //
+@use './pages/createCourse';
+@use './pages/profile';
+@use './pages/formPage';
+@use './pages/coursEleve';
+@use './pages/homepage';
+@use './pages/coursPreview';
+
+// == COMPONENTS == //
+@use './components/answer';
+@use './components/menu';
+@use './components/form';
+@use './components/coursComponent';
+@use './components/coursPreviewComponent';
+@use './components/courseChild';
+

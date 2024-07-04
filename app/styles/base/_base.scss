@@ -1,0 +1,104 @@
+@use './mixins' as *;
+
+@import url(https://fonts.bunny.net/css?family=lexend-deca:400,500);
+@import url(https://fonts.bunny.net/css?family=space-mono:700);
+@import url(https://fonts.bunny.net/css?family=pt-serif:700);
+
+:root {
+  /* 
+    Je met à 10px pour la conversion en rem. 
+    Si je veux 16px, c'est 1.6rem
+  */
+  font-size: 10px;
+  font-family: 'Lexend Deca', sans-serif;
+  // font-family: 'Space Mono', monospace;
+  // background-color: #fff;
+  background-color: var(--background);
+  // color: #262626;
+}
+
+.container {
+  width: min(100% - 4rem, 132rem);
+  margin-inline: auto;
+  overflow: hidden;
+
+  @include mq(tablet) {
+    width: min(100% - 6rem, 132rem);
+  }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Space Mono';
+  font-weight: 700;
+}
+
+.big-title {
+  font-size: 3rem;
+  line-height: 4rem;
+  
+  @include mq(desktop) {
+    font-size: 4rem;
+    line-height: 4rem;
+    letter-spacing: -2.5px;
+  }
+}
+
+.mid-title {
+  font-size: 3.4rem;
+  line-height: 3.4rem;
+  
+  @include mq(tablet) {
+    font-size: 4.8rem;
+    line-height: 4.8rem;
+    letter-spacing: -1px;
+  }
+}
+
+.lil-title {
+  font-size: 4rem;
+  line-height: 4rem;
+  letter-spacing: -1.786px;
+}
+
+.shy-title {
+  font-size: 2.4rem;
+  line-height: 2.8rem;
+  letter-spacing: -1px;
+}
+
+.text {
+  font-size: 1.6rem;
+  font-weight: 400;
+  line-height: 24px;
+  color: var(--text-color);
+}
+
+.button {
+  padding: 1.2rem 2.4rem;
+  background-color: var(--blue);
+  color: var(--white);
+  border-radius: 8px;
+  font-size: 1.6rem;
+  transition: all 0.3s ease-in-out;
+
+  &:hover {
+    background-color: var(--hover-blue);
+  }
+
+  &-white {
+    @extend .button;
+    border: 1px solid #E6E8EA;
+    background-color: var(--white);
+    box-shadow: 0px 16px 30px -10px rgba(70, 88, 109, 0.20);
+    color: #141D2F;
+  }
+}
+
+.blue {
+  color: var(--blue);
+}
