@@ -1,0 +1,80 @@
+@use '../base/mixins' as *;
+
+.coursePreview {
+  & img {
+    width: 100%;
+    object-fit: cover;
+    height: 200px;
+
+    @include mq(tablet) {
+      height: 400px;
+    }
+
+    @include mq(laptop) {
+      height: 600px;
+    }
+  }
+
+  h1 {
+    text-align: center;
+    margin: 4rem 0;
+  }
+
+  &-content {
+
+    @include mq(laptop) {
+      display: flex;
+      gap: 12rem;
+      margin-top: 6rem;
+
+      .text {
+        flex: 1;
+      }
+    }
+  }
+
+  &-aside {
+    margin-top: 4rem;
+    background-color: var(--background-content);
+    padding: 6rem 4rem;
+    border-radius: 1.5rem;
+    box-shadow: var(--box-shadow);
+
+    @include mq(laptop) {
+      margin-top: 0;
+      width: 42rem;
+    }
+
+    button {
+      width: 100%;
+      margin: 2rem auto 4rem;
+
+      @include mq(tablet) {
+        max-width: 62.8rem;
+      }
+    }
+
+    & .submit_create_course {
+      text-align: center;
+      font-size: 2rem;
+      font-weight: 700;
+      line-height: 3.2rem;
+      letter-spacing: 0.048px;
+    }
+
+    &-element {
+      font-size: 1.8rem;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 2.8rem;
+      margin-bottom: 2rem;
+
+      &-p {
+        p:not(:last-child) {
+          margin-bottom: 1rem;
+        }
+      }
+    }
+  }
+}
+

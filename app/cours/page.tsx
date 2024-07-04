@@ -16,30 +16,33 @@ const Cours = async () => {
     .select('*, user (id, firstname, lastname, role)')
     .eq('isPublic', true);
 
-  let user = await getUser();
 
-  const { data: coursSuivis } = await supabase.from('user_cours').select('cours ()').eq('user', user.id);
 
-  // Extraire les identifiants des cours suivis
-  const coursSuivisIds = coursSuivis?.map((courSuivi) => courSuivi.cours.id);
-
-  // Filtrer les cours pour ne garder que ceux suivis par l'utilisateur
-  const coursFollowed = cours?.filter((cour) => coursSuivisIds.includes(cour.id));
-  const coursNotFollowed = cours?.filter((cour) => !coursSuivisIds.includes(cour.id));
-  console.log(coursFollowed, coursNotFollowed);
+  // console.log(coursFollowed, coursNotFollowed);
   return (
     <section className='container'>
       <h1 className='mid-title'>Liste des cours</h1>
       <div className='card-container'>
         {cours?.map((cour) => (
-          <>
-            {coursFollowed.includes(cour) && <CoursComponent cour={cour} key={cour.id} isFollowed={true} />}
-            {coursNotFollowed.includes(cour) && <CoursComponent cour={cour} key={cour.id} isFollowed={false} />}
-          </>
+          <CoursComponent cour={cour} key={cour.id} />
         ))}
+
+        {/* {user ? (
+          <>
+            {cours?.map((cour) => (
+              <>
+                {coursFollowed.includes(cour) && <CoursComponent cour={cour} key={cour.id} isFollowed={true} />}
+                {coursNotFollowed.includes(cour) && <CoursComponent cour={cour} key={cour.id} isFollowed={false} />}
+              </>
+            ))}
+          </>
+        ) : (
+          <CoursComponent cour={cours} key={cours.id} isFollowed={false} />
+        )} */}
       </div>
     </section>
   );
 };
 
 export default Cours;
+

@@ -6,9 +6,8 @@ type Props = {
   isFollowed: boolean;
 };
 
-const CoursComponent = (props: Props) => {
+const CoursComponent = async (props: Props) => {
   const { cour } = props;
-  console.log(cour);
   
   return (
     <div className='card'>
