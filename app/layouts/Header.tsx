@@ -3,7 +3,6 @@ import AuthButton from '../components/AuthButton';
 import Menu from '../components/Menu';
 import ThemeSwitcher from '../components/ThemeSwitcher';
 import { createClient } from '../../utils/supabase/server';
-// import { getUser } from '../hooks/getUser';
 
 const Header = async () => {
   const supabase = createClient();
@@ -20,9 +19,9 @@ const Header = async () => {
           <li>
             <Link href='/'>Accueil</Link>
           </li>
-          <li>
+          {/* <li>
             <Link href='/about'>About</Link>
-          </li>
+          </li> */}
           <Link href='/cours'>Cours</Link>
           {userInfos?.role === 'professeur' && (
             <li>

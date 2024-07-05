@@ -2,7 +2,7 @@
 import { typeUser } from '../../types/types';
 
 import * as React from 'react';
-import { createContext, ReactNode, useEffect, useMemo, useState } from 'react';
+import { createContext, ReactNode, useMemo, useState } from 'react';
 
 type IUserContext = {
   user: typeUser;

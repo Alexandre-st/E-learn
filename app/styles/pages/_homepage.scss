@@ -57,14 +57,19 @@
         & li {
           color: var(--text-color);
           line-height: 2rem;
-          padding: 1rem 0;
+          padding: 1rem;
+
+          &:hover {
+            background-color: var(--background-content);
+            border-radius: 15px;
+          }
 
           @include mq(desktop) {
             font-size: 1.6rem;
           }
 
           &:not(:last-child) {
-            border-bottom: 1px solid var(--hover-text);
+            // border-bottom: 1px solid var(--hover-text);
           }
         }
 

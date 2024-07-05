@@ -24,15 +24,27 @@
     }
 
     &-image {
-      width: 260px;
+      width: 300px;
+      height: 300px;
       margin-bottom: 4rem;
+      border: 4px solid var(--blue);
+      border-radius: 50%;
 
       @include mq(tablet) {
         margin-bottom: 0;
       }
 
       img {
-        height: fit-content;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        padding: 0.4rem;
+        border-radius: 50%;
+      }
+
+      input {
+        margin: auto;
+        margin-top: 2rem;
       }
     }
 

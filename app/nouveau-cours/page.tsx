@@ -1,9 +1,9 @@
 'use client';
-import {useEffect, useState} from 'react';
+import { useEffect, useState } from 'react';
 import { FormProvider, SubmitHandler, useFieldArray, useForm } from 'react-hook-form';
 import QuizComponent from '../components/QuizComponent';
-import {getCategories, getUser, goTo} from './action';
-import {categorieType, NouveauCoursInputs} from '../../types/types';
+import { getCategories, getUser, goTo } from './action';
+import { categorieType, NouveauCoursInputs } from '../../types/types';
 import { createClient } from '../../utils/supabase/client';
 import { toast } from 'sonner';
 import { Metadata } from 'next';
@@ -36,9 +36,9 @@ const NouveauCours: React.FC = () => {
     const requestCategories = async () => {
       let categorie = await getCategories();
       setCategories(categorie);
-    }
+    };
     requestCategories();
-  }, [])
+  }, []);
 
   const onSubmit: SubmitHandler<NouveauCoursInputs> = async (formData) => {
     const user = await getUser();
@@ -87,7 +87,7 @@ const NouveauCours: React.FC = () => {
       }
 
       goTo(`cours/${data.id}`);
-      toast("Les données ont été insérées avec succès !")
+      toast('Les données ont été insérées avec succès !');
     } catch (error) {
       // console.error('API error:', error);
       alert('Erreur lors de la communication avec le serveur');
@@ -106,16 +106,20 @@ const NouveauCours: React.FC = () => {
         <form className='form' onSubmit={handleSubmit(onSubmit)}>
           <div className='layout_title_course'>
             <h1 className='mid-title'>Enregistrer le cours</h1>
-            <button type='submit' className='button'>Enregistrer le cours</button>
+            <button type='submit' className='button'>
+              Enregistrer le cours
+            </button>
           </div>
 
           <div className='inputStyle title_course'>
             <label className='shy-title'>Titre du cours :</label>
-            <input {...register('title', {required: true})} className='input_create_course'/>
+            <input {...register('title', { required: true })} className='input_create_course' />
             {errors.title && <span>Ce champ est requis</span>}
             <select {...register('categorie', { required: true })}>
               {categories.map((categorie, index) => (
-                  <option key={index} value={categorie.id}>{categorie.nom}</option>
+                <option key={index} value={categorie.id}>
+                  {categorie.nom}
+                </option>
               ))}
             </select>
           </div>
@@ -145,7 +149,8 @@ const NouveauCours: React.FC = () => {
                       />
                       <textarea
                         {...register(`contents.${index}.value` as const, { required: true })}
-                        rows={10} cols={30}
+                        rows={10}
+                        cols={30}
                         placeholder='Entrez le contenu texte'
                       />
                     </div>
@@ -161,13 +166,13 @@ const NouveauCours: React.FC = () => {
                   </>
                 )}
                 {field.type === 'video' && (
-                  <div className="inputStyle videoContent">
+                  <div className='inputStyle videoContent'>
                     <label>Insérez votre lien vidéo YouTube</label>
                     <input
                       {...register(`contents.${index}.value` as const, { required: true })}
                       placeholder='Entrez votre lien vidéo'
                     />
-                    <button className="button-white" onClick={() => remove(index)}>
+                    <button className='button-white' onClick={() => remove(index)}>
                       Supprimer cette vidéo
                     </button>
                   </div>
